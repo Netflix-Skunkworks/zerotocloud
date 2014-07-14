@@ -4,9 +4,18 @@ task download(type: Download) {
     downloadFileName = 'asgard.war'
 }
 
+// TODO Config.groovy in /usr/share/tomcat7/.asgard/Config.groovy
+import org.apache.tools.ant.filters.*
 ospackage {
     from(download) {
         into('/var/lib/tomcat7/webapps/')
         rename(/.*/, 'ROOT.war')
     }
+    from(file('root/etc/tomcat7')) {
+        into('/etc/tomcat7')
+        permissionGroup = 'tomcat7'
+
+        filter ReplaceTokens, tokens: [ "asgard.password": project.property("asgard.password") ]
+    }
+    postInstall('mv /etc/tomcat7/tomcat-users.xml.asgard /etc/tomcat7/tomcat-users.xml')
 }
