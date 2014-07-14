@@ -1,0 +1,13 @@
+    buildscript {
+        repositories { jcenter() }
+
+        dependencies {
+            classpath 'com.netflix.nebula:gradle-ospackage-plugin:1.12.+'
+            classpath 'com.google.guava:guava:17.0'
+            classpath 'de.undercouch:gradle-download-task:1.0'
+        }
+    }
+subprojects {
+
+    apply plugin: 'os-package'
+}

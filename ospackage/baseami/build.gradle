@@ -1,0 +1,4 @@
+ospackage {
+    requires('default-jdk')
+    requires('tomcat7')
+}

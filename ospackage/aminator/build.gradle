@@ -1,0 +1,24 @@
+buildscript {
+  repositories { jcenter() }
+  dependencies { classpath 'org.ajoberstar:gradle-git:0.9.0' }
+}
+
+import org.ajoberstar.grgit.*
+def gitDir = new File(project.buildDir, 'aminator-git')
+task cloneRepo << {
+    def grgit = Grgit.clone(dir: gitDir, uri: 'https://github.com/Netflix/aminator.git', refToCheckout: 'origin/testing')
+    // TODO Setup url, etc, can use grgit to grab
+}
+
+buildDeb {
+    dependsOn(cloneRepo)
+    from(gitDir) {
+        into('/opt/aminator')
+    }
+}
+
+ospackage {
+    requires('python-pip')
+    requires('python-dev')
+    postInstall('cd /opt/aminator; python setup.py install')
+}
