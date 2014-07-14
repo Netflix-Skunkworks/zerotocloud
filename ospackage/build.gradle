@@ -1,13 +1,26 @@
-    buildscript {
-        repositories { jcenter() }
+buildscript {
+    repositories { jcenter() }
 
-        dependencies {
-            classpath 'com.netflix.nebula:gradle-ospackage-plugin:1.12.+'
-            classpath 'com.google.guava:guava:17.0'
-            classpath 'de.undercouch:gradle-download-task:1.0'
-        }
+    dependencies {
+        classpath 'com.netflix.nebula:gradle-ospackage-plugin:1.12.+'
+        classpath 'com.google.guava:guava:17.0'
+        classpath 'de.undercouch:gradle-download-task:1.0'
+        classpath 'com.netflix.nebula:gradle-info-plugin:1.12.+'
     }
+}
+
+import nebula.plugin.info.reporting.*
 subprojects {
 
+    apply plugin: 'info'
     apply plugin: 'os-package'
+
+    // Ensure at least one file is included in package, always
+    tasks.withType(InfoPropertiesFile) { propTask ->
+        ospackage {
+            from(propTask) {
+                into('/etc')
+            }
+        }
+    }
 }
