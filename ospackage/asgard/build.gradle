@@ -1,0 +1,12 @@
+import nebula.core.tasks.Download
+task download(type: Download) {
+    downloadBase = 'https://github.com/Netflix/asgard/releases/download/asgard-1.5'
+    downloadFileName = 'asgard.war'
+}
+
+ospackage {
+    from(download) {
+        into('/var/lib/tomcat7/webapps/')
+        rename(/.*/, 'ROOT.war')
+    }
+}

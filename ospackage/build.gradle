@@ -4,8 +4,8 @@ buildscript {
     dependencies {
         classpath 'com.netflix.nebula:gradle-ospackage-plugin:1.12.+'
         classpath 'com.google.guava:guava:17.0'
-        classpath 'de.undercouch:gradle-download-task:1.0'
         classpath 'com.netflix.nebula:gradle-info-plugin:1.12.+'
+        classpath 'com.netflix.nebula:nebula-core:1.12.+'
     }
 }
 
