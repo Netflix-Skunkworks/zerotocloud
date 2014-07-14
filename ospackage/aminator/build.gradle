@@ -10,6 +10,8 @@ task cloneRepo(type: CloneRepo) {
 ospackage {
     from(cloneRepo) {
         into('/opt/aminator')
+        user = 'ubuntu'
+        packagingGroup = 'ubuntu'
     }
     requires('python-pip')
     requires('python-dev')
