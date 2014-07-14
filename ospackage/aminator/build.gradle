@@ -7,15 +7,14 @@ task cloneRepo(type: CloneRepo) {
     branch = 'testing'
 }
 
-buildDeb {
+ospackage {
     from(cloneRepo) {
         into('/opt/aminator')
     }
-}
-
-ospackage {
     requires('python-pip')
     requires('python-dev')
+    postInstall('mkdir /opt/aminator/incoming')
+    postInstall('chown -R ubuntu:ubuntu /opt/aminator')
     postInstall('cd /opt/aminator; python setup.py install')
 }
 
