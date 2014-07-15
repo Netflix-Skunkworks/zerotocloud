@@ -1,0 +1,12 @@
+configurations.create('eureka') {
+    transitive = false
+}
+repositories { jcenter() }
+dependencies { eureka 'com.netflix.eureka:eureka-server:1.1.136' }
+
+ospackage {
+    from(configurations.eureka) {
+        into('/var/lib/tomcat7/webapps/')
+        rename(/.*/, 'ROOT.war')
+    }
+}
