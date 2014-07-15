@@ -10,6 +10,7 @@ task buildRepo(type: Build) {
     arguments = ['build', '-x', 'test', '--stacktrace']
 }
 
+// TODO /var/lib/tomcat7/webapps/edda/WEB-INF/classes/edda.properties with region
 ospackage {
     from(buildRepo) {
         into('/var/lib/tomcat7/webapps/')

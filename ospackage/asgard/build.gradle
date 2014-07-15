@@ -5,6 +5,7 @@ task download(type: Download) {
 }
 
 // TODO Config.groovy in /usr/share/tomcat7/.asgard/Config.groovy
+// TODO tomcat_extra_opts: "-Darchaius.deployment.applicationId=asgard -Dnetflix.datacenter=cloud"
 import org.apache.tools.ant.filters.*
 ospackage {
     from(download) {
