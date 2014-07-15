@@ -1,0 +1,19 @@
+
+import zerotocloud.*
+task cloneRepo(type: CloneRepo) {
+    repository = 'https://github.com/Netflix/edda.git'
+}
+
+task buildRepo(type: Build) {
+    dependsOn 'cloneRepo'
+    moduleDir = cloneRepo.gitDir
+    arguments = ['build', '-x', 'test', '--stacktrace']
+}
+
+ospackage {
+    from(buildRepo) {
+        into('/var/lib/tomcat7/webapps/')
+        include '*.war'
+        rename(/.*/, 'ROOT.war')
+    }
+}

@@ -1,0 +1,8 @@
+repositories { jcenter() }
+
+dependencies {
+    gradleApi()
+    compile 'org.ajoberstar:gradle-git:0.9.0'
+}
+
+apply plugin: 'groovy'

@@ -1,2 +1,2 @@
 rootProject.name='zerotocloud-ospackage'
-include 'baseami', 'aminator', 'asgard'
+include 'baseami', 'aminator', 'asgard', 'edda', 'eureka'

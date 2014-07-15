@@ -1,9 +1,7 @@
-buildscript {
-  repositories { jcenter() }
-  dependencies { classpath 'org.ajoberstar:gradle-git:0.9.0' }
-}
+import zerotocloud.*
 
 task cloneRepo(type: CloneRepo) {
+    repository = 'https://github.com/Netflix/aminator.git'
     branch = 'testing'
 }
 
@@ -11,28 +9,11 @@ ospackage {
     from(cloneRepo) {
         into('/opt/aminator')
         user = 'ubuntu'
-        packagingGroup = 'ubuntu'
+        permissionGroup = 'ubuntu'
     }
     requires('python-pip')
     requires('python-dev')
     postInstall('mkdir /opt/aminator/incoming')
     postInstall('chown -R ubuntu:ubuntu /opt/aminator')
     postInstall('cd /opt/aminator; python setup.py install')
-}
-
-import org.ajoberstar.grgit.*
-class CloneRepo extends DefaultTask {
-    @Input
-    String repository = 'https://github.com/Netflix/aminator.git'
-
-    @Input
-    String branch = 'master'
-
-    @OutputDirectory
-    File gitDir = new File(project.buildDir, "${project.name}-git")
-
-    @TaskAction
-    def clone() {
-        def grgit = Grgit.clone(dir: gitDir, uri: repository, refToCheckout: branch)
-    }
 }
