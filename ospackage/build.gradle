@@ -24,3 +24,19 @@ subprojects {
         }
     }
 }
+
+task writeBoto << {
+    def home = new File(System.getenv('HOME'))
+    def csvFile = new File(home, 'credentials.csv')
+    def line = csvFile.text.split('\n')[1]
+    def parts = line.split(',')
+
+    def cfgFile = new File(home, 'boto.cfg')
+    cfgFile.withWriter { out ->
+        out << """
+            [Credentials]
+            aws_access_key_id = ${parts[1]}
+            aws_secret_access_key = ${parts[2]}
+            """.stripIndent()
+    }
+}
