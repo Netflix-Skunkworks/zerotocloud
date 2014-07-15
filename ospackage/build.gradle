@@ -25,13 +25,15 @@ subprojects {
     }
 }
 
-task writeBoto << {
-    def home = new File(System.getenv('HOME'))
+def region = project.hasProperty('region') ? property.region : 'us-west-2'
+def home = new File(System.getenv('HOME'))
+
+task writeConfig << {
     def csvFile = new File(home, 'credentials.csv')
     def line = csvFile.text.split('\n')[1]
     def parts = line.split(',')
 
-    def cfgFile = new File(home, 'boto.cfg')
+    def cfgFile = new File(home, '.boto')
     cfgFile.withWriter { out ->
         out << """
             [Credentials]
@@ -39,4 +41,18 @@ task writeBoto << {
             aws_secret_access_key = ${parts[2]}
             """.stripIndent()
     }
+
+    def awsFile = new File(home, '.aws')
+    awsFile.mkdir()
+
+    def configFile = new File(awsFile, 'config')
+    configFile.withWriter { out ->
+        out << """
+            [default]
+            aws_access_key_id = ${parts[1]}
+            aws_secret_access_key = ${parts[2]}
+            region = us-west-2
+            """.stripIndent()
+    }
+
 }
