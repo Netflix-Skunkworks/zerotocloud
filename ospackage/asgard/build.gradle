@@ -12,8 +12,9 @@ ospackage {
         into('/var/lib/tomcat7/webapps/')
         rename(/.*/, 'ROOT.war')
     }
-    from(file('root/etc/tomcat7')) {
-        into('/etc/tomcat7')
+    from(file('root')) {
+        into('/')
+        user = 'tomcat7'
         permissionGroup = 'tomcat7'
 
         filter ReplaceTokens, tokens: [ "asgard.password": project.property("asgard.password") ]
