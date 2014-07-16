@@ -1,4 +1,4 @@
-?xml version='1.0' encoding='utf-8'?>
+<?xml version='1.0' encoding='utf-8'?>
 <tomcat-users>
     <role rolename="asgard"/>
     <user username="asgard" password="@asgard.password@" roles="asgard"/>

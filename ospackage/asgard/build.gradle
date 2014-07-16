@@ -19,4 +19,5 @@ ospackage {
         filter ReplaceTokens, tokens: [ "asgard.password": project.property("asgard.password") ]
     }
     postInstall('mv /etc/tomcat7/tomcat-users.xml.asgard /etc/tomcat7/tomcat-users.xml')
+    postInstall('rm -fr /var/lig/tomcat7/webapps/ROOT')
 }
