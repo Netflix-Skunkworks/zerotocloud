@@ -1,4 +1,13 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
 ospackage {
     requires('default-jdk')
     requires('tomcat7')
+
+    from(file('root')) {
+        into('/')
+        user = 'tomcat7' // A little
+        permissionGroup = 'tomcat7'
+    }
+    postInstall('rm -fr /var/lib/tomcat7/webapps/ROOT')
 }

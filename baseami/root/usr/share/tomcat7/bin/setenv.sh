@@ -1,7 +1,7 @@
 if [ "$1" == "start" ]; then
   export JAVA_OPTS=" \
     -verbose:sizes \
-    -Xmx2048m -Xms512m \
+    -Xmx2560m -Xms512m \
     -XX:MaxPermSize=128m \
     -XX:+HeapDumpOnOutOfMemoryError \
     -XX:-UseGCOverheadLimit \

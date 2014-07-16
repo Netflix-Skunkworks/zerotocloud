@@ -7,11 +7,12 @@ task cloneRepo(type: CloneRepo) {
 task buildRepo(type: Build) {
     dependsOn 'cloneRepo'
     moduleDir = cloneRepo.gitDir
-    arguments = ['build', '-x', 'test', '--stacktrace']
+    arguments = ['build', '-x', 'check', '-x', 'scaladocJar', '-x', 'sourcesJar', '-x', 'javadocJar', '--stacktrace']
 }
 
 // TODO /var/lib/tomcat7/webapps/edda/WEB-INF/classes/edda.properties with region
 ospackage {
+    depends('mongodb')
     from(buildRepo) {
         into('/var/lib/tomcat7/webapps/')
         include '*.war'
