@@ -1,0 +1,46 @@
+#!/bin/bash
+
+prog=`basename $0`
+
+curl="curl --retry 3 --silent --show-error --fail"
+url="http://169.254.169.254/latest/"
+metauri="meta-data/"
+useruri="user-data/"
+# don't create var strings for meta-data URIs containing 
+# these regex's
+metadata_skip_re="=|metrics/|iam/|ipv4-associations/"
+
+_metadatavars() {
+    local url=$1
+    for uri in `$curl $url`
+    do
+        [[ $uri =~ $metadata_skip_re ]] && continue
+        if [[ $uri =~ ^.*/$ ]]
+        then
+            _metadatavars "${url}${uri}"
+        else
+            printf "export EC2_%s=\"%s\"\n"  `echo $uri | tr '/-' '_' | tr 'a-z' 'A-Z'` "`$curl ${url}${uri}| tr '\n' ' '`"
+        fi
+    done
+}
+
+_fetchkey () {
+    local i="$1"
+
+    $curl "${url}${metauri}public-keys/${i}/openssh-key"
+
+}
+
+case $prog in
+
+    # traverse instance meta-data tree, dumping the leaves to stdout as
+    # VARIABLE=value pairs. Intended to be sourced into a shell env.
+    metadatavars) _metadatavars ${url}${metauri} | sort -u ;;
+
+    # dump the openssh public-key from the metadata service
+    fetchsshkey) _fetchkey 0 ;;
+
+    # dump userdata to stdout
+        userdata) $curl ${url}${useruri} ;;
+
+esac
