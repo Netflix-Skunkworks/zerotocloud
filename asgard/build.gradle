@@ -16,7 +16,12 @@ ospackage {
         user = 'tomcat7'
         permissionGroup = 'tomcat7'
 
-        filter ReplaceTokens, tokens: [ "asgard.password": project.property("asgard.password") ]
+        def accountNumber = System.getenv('EC2_OWNER_ID')
+
+        filter ReplaceTokens, tokens: [
+                "ASGARD_PASSWORD": project.property("asgard.password"),
+                "ACCOUNT_NUMBER": accountNumber
+        ]
     }
     postInstall('mv /etc/tomcat7/tomcat-users.xml.asgard /etc/tomcat7/tomcat-users.xml')
 }

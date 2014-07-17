@@ -59,8 +59,10 @@ task writeConfig << {
     asgardHome.mkdir()
 
     def asgardConfig = new File(asgardHome, 'Config.groovy')
+    def accountNumber = System.getenv('EC2_OWNER_ID')
+
     asgardConfig.withWriter { out ->
-        out << project('asgard').file('root/usr/share/tomcat7/.asgard/Config.groovy').text
+        out << project('asgard').file('root/usr/share/tomcat7/.asgard/Config.groovy').text.replace("@ACCOUNT_NUMBER@", accountNumber)
         out << """
             secret {
                     accessId="${parts[1]}"

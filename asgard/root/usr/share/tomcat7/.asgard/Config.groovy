@@ -1,3 +1,8 @@
+def accountNumber = '@ACCOUNT_NUMBER@'
+grails {
+    awsAccounts = [accountNumber]
+    awsAccountNames = [(accountNumber): 'prod']
+}
 cloud {
     accountName="demo"
     publicResourceAccounts=["netflixoss"]
