@@ -4,18 +4,35 @@ task cloneRepo(type: CloneRepo) {
     repository = 'https://github.com/Netflix/edda.git'
 }
 
-task buildRepo(type: Build) {
+task patchRepo {
     dependsOn 'cloneRepo'
+    doFirst {
+        def propsFile = new File(cloneRepo.gitDir, 'src/main/resources/edda.properties')
+        def propsContent = propsFile.text
+        propsFile.withWriter { out ->
+            out << propsContent.replace('edda.region=us-west-1', 'edda.region=us-west-2')
+        }
+        // TODO Use ElasticSearch instead of mongo
+    }
+}
+
+task buildRepo(type: Build) {
+    dependsOn 'cloneRepo', 'patchRepo'
     moduleDir = cloneRepo.gitDir
     arguments = ['build', '-x', 'check', '-x', 'scaladocJar', '-x', 'sourcesJar', '-x', 'javadocJar', '--stacktrace']
 }
 
 // TODO /var/lib/tomcat7/webapps/edda/WEB-INF/classes/edda.properties with region
 ospackage {
-    depends('mongodb')
+    requires('mongodb')
     from(buildRepo) {
         into('/var/lib/tomcat7/webapps/')
         include '*.war'
         rename(/.*/, 'ROOT.war')
     }
+    postInstall("perl -p -i -e 's/journal=true/journal=false/gi' /etc/mongodb.conf")
+    // TODO Use ephemeral storage
+    //postInstall('mkdir /mnt/mongodb')
+    //postInstall("perl -p -i -e 's/dbpath=\\/var\\/lib\\/mongodb/dbpath=\\/mnt\\/mongodb/gi' /etc/mongodb.conf")
+    // TODO Use ElasticSearch instead of monogodb
 }

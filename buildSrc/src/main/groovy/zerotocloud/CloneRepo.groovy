@@ -16,6 +16,10 @@ class CloneRepo extends DefaultTask {
 
     @TaskAction
     def clone() {
-        Grgit.clone(dir: gitDir, uri: repository, refToCheckout: branch)
+        if(gitDir.listFiles().length != 0) {
+            // Pull, though Gradle shouldn't call us if directory already exists
+        } else {
+            Grgit.clone(dir: gitDir, uri: repository, refToCheckout: branch)
+        }
     }
 }
