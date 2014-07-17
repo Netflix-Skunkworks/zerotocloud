@@ -60,6 +60,7 @@ task writeConfig << {
 
     def asgardConfig = new File(asgardHome, 'Config.groovy')
     asgardConfig.withWriter { out ->
+        out << project('asgard').file('root/usr/share/tomcat7/.asgard/Config.groovy').text
         out << """
             secret {
                     accessId="${parts[1]}"

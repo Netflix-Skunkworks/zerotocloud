@@ -1,4 +1,5 @@
 cloud {
+    defaultKeyName = 'zerotocloud'
     launchConfig {
         ebsVolumes {
             instanceTypeNeeds = { String instanceType ->
