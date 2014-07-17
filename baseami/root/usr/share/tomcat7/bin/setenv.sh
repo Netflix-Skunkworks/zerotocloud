@@ -1,5 +1,4 @@
-if [ "$1" == "start" ]; then
-  export JAVA_OPTS=" \
+export CATALINA_OPTS=" \
     -verbose:sizes \
     -Xmx2560m -Xms512m \
     -XX:MaxPermSize=128m \
@@ -11,6 +10,3 @@ if [ "$1" == "start" ]; then
     -XX:+CMSClassUnloadingEnabled \
     -XX:+UseConcMarkSweepGC \
     "
-else
-  export JAVA_OPTS=""
-fi

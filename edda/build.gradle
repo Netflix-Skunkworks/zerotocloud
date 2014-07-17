@@ -22,7 +22,6 @@ task buildRepo(type: Build) {
     arguments = ['build', '-x', 'check', '-x', 'scaladocJar', '-x', 'sourcesJar', '-x', 'javadocJar', '--stacktrace']
 }
 
-// TODO /var/lib/tomcat7/webapps/edda/WEB-INF/classes/edda.properties with region
 ospackage {
     requires('mongodb')
     from(buildRepo) {

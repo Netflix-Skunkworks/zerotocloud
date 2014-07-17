@@ -3,6 +3,7 @@ import org.apache.tools.ant.filters.ReplaceTokens
 ospackage {
     requires('default-jdk')
     requires('tomcat7')
+    //requires('libtcnative-1')
 
     from(file('root')) {
         into('/')
@@ -10,4 +11,5 @@ ospackage {
         permissionGroup = 'tomcat7'
     }
     postInstall('rm -fr /var/lib/tomcat7/webapps/ROOT')
+    postInstall("perl -p -i -e 's/port=\"8080\"/port=\"7001\"/gi' /var/lib/tomcat7/conf/server.xml")
 }
