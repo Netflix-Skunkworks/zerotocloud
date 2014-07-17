@@ -35,7 +35,8 @@ task writeConfig << {
 
     def cfgFile = new File(home, '.boto')
     cfgFile.withWriter { out ->
-        out << """[Credentials]
+        out << """
+            [Credentials]
             aws_access_key_id = ${parts[1]}
             aws_secret_access_key = ${parts[2]}
             """.stripIndent()
@@ -46,7 +47,8 @@ task writeConfig << {
 
     def configFile = new File(awsFile, 'config')
     configFile.withWriter { out ->
-        out << """[default]
+        out << """
+            [default]
             aws_access_key_id = ${parts[1]}
             aws_secret_access_key = ${parts[2]}
             region = us-west-2
