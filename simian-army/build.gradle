@@ -1,0 +1,45 @@
+import zerotocloud.* // For Task types used below
+task cloneRepo(type: CloneRepo) {
+    repository = 'https://github.com/Netflix/SimianArmy.git'
+}
+
+task patchRepo {
+    dependsOn 'cloneRepo'
+    doFirst {
+        def client = new File(cloneRepo.gitDir, 'src/main/resources/client.properties')
+        def propsContent = client.text
+        client.withWriter { out ->
+            out << client.text.replace('us-west-1', 'us-west-2')
+        }
+
+        def simian = new File(cloneRepo.gitDir, 'src/main/resources/simianarmy.properties')
+        simian.withWriter { out ->
+            out << simian.text.replace('#simianarmy.calendar.isMonkeyTime', 'simianarmy.calendar.isMonkeyTime')
+        }
+
+        def chaos = new File(cloneRepo.gitDir, 'src/main/resources/chaos.properties')
+        chaos.withWriter { out ->
+            out << chaos.text
+                    //.replace('leashed = true', 'leashed = false')
+                    //.replace('ASG.enabled = false', 'ASG.enabled = true') // Set true for Opt-out
+                    .replace('ASG.probability = 1.0', 'ASG.probability = 0.9')
+                    // + 'simianarmy.chaos.ASG.monkey-target.enabled=true' // Target specific ASG monkey-target
+                    // + 'simianarmy.chaos.ASG.monkey-target.probabilty=1.0' // Target specific ASG monkey-target
+        }
+    }
+}
+
+task buildRepo(type: Build) {
+    dependsOn 'cloneRepo', 'patchRepo'
+    moduleDir = cloneRepo.gitDir
+    arguments = ['build', '-x', 'check', '-x', 'sourcesJar', '-x', 'javadocJar', '--stacktrace']
+}
+
+ospackage {
+    from(buildRepo) {
+        into('/var/lib/tomcat7/webapps/')
+        include '*.war'
+        rename(/.*/, 'ROOT.war')
+    }
+    postInstall("perl -p -i -e 's/journal=true/journal=false/gi' /etc/mongodb.conf")
+}
