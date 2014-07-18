@@ -7,7 +7,7 @@ cloud {
     accountName="prod"
     publicResourceAccounts=[]
     defaultKeyName = 'zerotocloud'
-    defaultSecurityGroups = ['elb-http-public']
+    defaultSecurityGroups = []
     launchConfig {
         ebsVolumes {
             instanceTypeNeeds = { String instanceType ->
