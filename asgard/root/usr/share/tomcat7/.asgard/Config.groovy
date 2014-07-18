@@ -4,8 +4,8 @@ grails {
     awsAccountNames = [(accountNumber): 'prod']
 }
 cloud {
-    accountName="demo"
-    publicResourceAccounts=["netflixoss"]
+    accountName="prod"
+    publicResourceAccounts=[]
     defaultKeyName = 'zerotocloud'
     defaultSecurityGroups = ['elb-http-public']
     launchConfig {
