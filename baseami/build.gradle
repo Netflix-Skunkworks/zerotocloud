@@ -9,9 +9,12 @@ ospackage {
         into('/')
         user = 'tomcat7' // A little
         permissionGroup = 'tomcat7'
+    }
 	link("/usr/local/bin/userdata", "metadatavars")
 	link("/usr/local/bin/fetchsshkey", "metadatavars")
-    }
+
     postInstall('rm -fr /var/lib/tomcat7/webapps/ROOT')
+
+    // Defaults used by Asgard
     postInstall("perl -p -i -e 's/port=\"8080\"/port=\"7001\"/gi' /var/lib/tomcat7/conf/server.xml")
 }
