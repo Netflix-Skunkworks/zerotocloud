@@ -24,4 +24,5 @@ ospackage {
         ]
     }
     postInstall('mv /etc/tomcat7/tomcat-users.xml.asgard /etc/tomcat7/tomcat-users.xml')
+    postInstall('echo "export CATALINA_OPTS=\\"\\$CATALINA_OPTS -DonlyRegions=us-west-2\\"" >> /usr/share/tomcat7/bin/setenv.sh')
 }
