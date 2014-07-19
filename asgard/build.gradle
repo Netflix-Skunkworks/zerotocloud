@@ -18,6 +18,10 @@ ospackage {
 
         def accountNumber = System.getenv('EC2_OWNER_ID')
 
+        // It'd be nice to alert on this, but it seems like every run requires this
+        //if (!accountNumber) {
+        //    throw new GradleException("Please run eval \$(baseami/root/usr/local/bin/metadatavars) first")
+        //}
         filter ReplaceTokens, tokens: [
                 "ASGARD_PASSWORD": project.property("asgard.password"),
                 "ACCOUNT_NUMBER": accountNumber

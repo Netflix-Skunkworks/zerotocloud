@@ -14,5 +14,5 @@ ospackage {
         into('/var/lib/tomcat7/webapps/')
         rename(/.*/, 'ROOT.war')
     }
-    postInstall('echo "export CATALINA_OPTS=\\"\\$CATALINA_OPTS -Darchaius.deployment.applicationId=eureka -Deureka.datacenter=cloud -Deureka.registration.enabled=false\\"" >> /usr/share/tomcat7/bin/setenv.sh')
+    postInstall('echo "export CATALINA_OPTS=\\"\\$CATALINA_OPTS -Darchaius.deployment.applicationId=eureka -Deureka.datacenter=cloud -Deureka.registration.enabled=false -Deureka.remoteRegionUrlsWithName=\\"" >> /usr/share/tomcat7/bin/setenv.sh')
 }
