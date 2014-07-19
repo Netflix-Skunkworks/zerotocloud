@@ -9,17 +9,19 @@ task patchRepo {
         def client = new File(cloneRepo.gitDir, 'src/main/resources/client.properties')
         def propsContent = client.text
         client.withWriter { out ->
-            out << client.text.replace('us-west-1', 'us-west-2')
+            out << propsContent.replace('us-west-1', 'us-west-2')
         }
 
         def simian = new File(cloneRepo.gitDir, 'src/main/resources/simianarmy.properties')
+        def simianContent = simian.text 
         simian.withWriter { out ->
-            out << simian.text.replace('#simianarmy.calendar.isMonkeyTime', 'simianarmy.calendar.isMonkeyTime')
+            out << simianContent.replace('#simianarmy.calendar.isMonkeyTime', 'simianarmy.calendar.isMonkeyTime')
         }
 
         def chaos = new File(cloneRepo.gitDir, 'src/main/resources/chaos.properties')
+        def chaosContent = chaos.text
         chaos.withWriter { out ->
-            out << chaos.text
+            out << chaosContent
                     //.replace('leashed = true', 'leashed = false')
                     //.replace('ASG.enabled = false', 'ASG.enabled = true') // Set true for Opt-out
                     .replace('ASG.probability = 1.0', 'ASG.probability = 0.9')
