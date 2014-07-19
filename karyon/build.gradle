@@ -1,0 +1,30 @@
+
+import zerotocloud.*
+task cloneRepo(type: CloneRepo) {
+    repository = 'https://github.com/Netflix/karyon.git'
+}
+
+task patchRepo {
+    dependsOn 'cloneRepo'
+    doFirst {
+    }
+}
+
+task buildRepo(type: Build) {
+    dependsOn 'cloneRepo', 'patchRepo'
+    moduleDir = cloneRepo.gitDir
+    arguments = [':karyon-examples:hello-netflix-oss:distZip', '-x', 'check', '-x', 'signArchives', '-x', 'sourcesJar', '-x', 'javadocJar', '--stacktrace']
+}
+
+ospackage {
+    def dist = new File(buildRepo.moduleDir, 'karyon-examples/hello-netflix-oss/build/distributions/hello-netflix-oss-2.1.00-RC3.zip')
+    from( zipTree(dist) ) {
+        into('/opt')
+    }
+    from(file('root')) {
+        into('/')
+    }
+    postInstall('mv /opt/hello-netflix-oss* /opt/hello-netflix-oss') // zip was nested
+    postInstall('echo manual > /etc/init/tomcat7.override')
+}
+buildDeb.dependsOn(buildRepo)
