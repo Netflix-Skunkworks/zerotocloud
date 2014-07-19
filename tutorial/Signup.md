@@ -10,28 +10,28 @@ Navigate to https://portal.aws.amazon.com/gp/aws/developer/registration/.
 ![](images/A1_Amazon_Web_Services_Sign_In.png)
 
 # 2. Provide Password and email
-![](tutorial/images/A2_Amazon_Web_Services_Sign_In_2.png?raw=true) 
+![](images/A2_Amazon_Web_Services_Sign_In_2.png) 
 
 # 3. Sign up for AWS
-[[tutorial/images/A3_Not_Signed_Up_for_AWS.png]]
+![](images/A3_Not_Signed_Up_for_AWS.png]]
 
 # 4. Provide contact details
-[[tutorial/images/A4_AWS_Console_-_Signup.png]]
+![](images/A4_AWS_Console_-_Signup.png]]
 
 # 5. Provide Payment Details
-[[tutorial/images/A5_AWS_Console_-_Signup_2.png]]
+![](images/A5_AWS_Console_-_Signup_2.png]]
 
 # 6. Provide Phone Number
-[[tutorial/images/A6_AWS_Console_-_Signup_4.png]]
+![](images/A6_AWS_Console_-_Signup_4.png]]
 
 # 7. Verify Phone Number
 
 Amazon will call your phone to perform it's verification.
 
-[[tutorial/images/A7_AWS_Console_-_Signup.png]]
+![](images/A7_AWS_Console_-_Signup.png]]
 
 # 8. Select Support Plan and Agree to their License
-[[tutorial/images/A8_AWS_Console_-_Signup.png]]
+![](images/A8_AWS_Console_-_Signup.png]]
 
 # 9. Welcome!
-[[tutorial/images/A9_Registration_Confirmation.png]]
+![](images/A9_Registration_Confirmation.png]]

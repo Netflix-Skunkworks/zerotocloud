@@ -18,95 +18,14 @@ We are actively tuning the steps and will post the specific steps here for OSCON
 
 # Tutorial
 
-1. [Sign up for AWS](tutorial/Step1.md)
-2. [Log into AWS Console](tutorial/Step2.md)
-3. Create keypair
-
-    4. Browse to [https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#KeyPairs:](https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#KeyPairs:)
-
-    5. Call it "zerotocloud" (tell them about a separate one for instances). 
-
-    6. It’ll be downloaded to your Downloads directory automatically.
-
-4. Start Ubuntu instance as a bastion/jumphost. Relevant when dealing with internal VPC and for not distributing keys to all your users.
-
-    7. Find your AMI "trusty amd64 us-west-2 ebs-ssd" on [http://cloud-images.ubuntu.com/locator/ec2/](http://cloud-images.ubuntu.com/locator/ec2/).  The AMI Id will look like “[ami-ddaed3ed](https://console.aws.amazon.com/ec2/home?region=us-west-2#launchAmi=ami-ddaed3ed)”. Do not select the HVM version. And ebs version would work, but choosing an ssh ebs volume for speed)
-
-    8. The AMI Id should be a hyperlink, click it. It’ll bring you to an AWS page.
-
-    9. Select "m3.xlarge" ‘s checkbox. Click “Review and Launch”
-
-    10. Click Launch. There’ll be a warning about Security. This can be changed now or later, in a security group which defaults to something like launch-wizard-1. As a reminder, it’s just SSH and you have the only PEM file. Might also see a message about not being in the free tier.
-
-    11. A dialog will appear to ask about the key pair. Used the one created in Step 3 called zerotocloud. Check the "I acknowledge…" checkbox.  Click “Launch Instances”
-
-    12. On the following page, there will be a "The following instance launch has been initiated:" section, immediately after that is your instance id. Click that link.
-
-    13. The page should show your instance selected. It’ll start in "Pending", once started look in the “Description” tab below, there is a field called “Public DNS” on the right hand side, save this.
-
-5. Create a user, mimics how the pem files work
-
-    14. View [Users](https://console.aws.amazon.com/iam/home?#users) page. Which can also be accessed from the Services | IAM | Users.
-
-    15. Select "Create New Users".
-
-    16. Enter a single user called jumphost and keep the "Generate an access key for each User" selected.
-
-    17. Click "Create". In the resulting dialog, do not immediately close the window. Click “Download credentials”, then you can close the window.
-
-    18. Select created user.
-
-    19. Select "Permissions" tab in the lower section, click “Attach User Policy”
-
-    20. Select "Administrator Access". (Relatively arbitrary but it’ll work for our tutorial use-cases. Though you should familiar yourself with a complex set of roles)    
-
-    21. Click "Apply Policy".
-
-6. Create a role for instances. Which can also be accessed from the Services | IAM | Users.
-
-    22. View [Roles](https://console.aws.amazon.com/iam/home?region=us-west-2#roles) page.
-
-    23. Click "Create New Role", name it “jumphost”, click “Continue”.
-
-    24. Click "Select" next to the “Amazon EC2” service role type
-
-    25. Click "Select" next to the “Administrator Access”  policy template
-
-    26. Click "Continue"
-
-    27. Click "Create Role"
-
-7. Create Security Group for ELBs.
-
-    28. View [Security Groups](https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#SecurityGroups:) page.  Which can also be accessed from the Services | EC2 | Security Groups.
-
-    29. Click "Create Security Group"
-
-    30. Set "Security group name" to “elb-http-public”
-
-    31. Set "Description" to “Public HTTP for ELBs”
-
-    32. Leave VPC alone
-
-    33. Click "Add Rule"
-
-        1. select "HTTP" under the Type column
-
-        2. ensure "Source" shows Anywhere
-
-    34. Click "Create"
-
-8. Foundation
-
-    35. View [Instances](https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Instances:) page. Which can also be accessed from the Services | EC2 | Instances.
-
-    36. With your instance selected, pull down from the "Actions" menu bar and select “Create Image”. (This will create a snapshot. If Canonical provided snapshots, we wouldn’t have to do this)
-
-    37. In the dialog that comes up, Give it an "Image Name" of “ubuntu-foundation”.
-
-    38. Click "Create Image".
-
-    39. On following dialog, you can just "Close" it.
+1. [Sign up for AWS](tutorial/Signup.md)
+2. [Log into AWS Console](tutorial/Login.md)
+3. [Create keypair](tutorial/Keypair.md)
+4. [Create Jumphost](tutorial/Jumphost.md)
+5. [Create a role](tutorial/CreateRole.md)
+6. [Create an user](tutorial/CreateUser.md)
+7. [Create Security Group for ELBs](tutorial/SecurityGroups.md)
+8. [Create Foundation AMI](tutorial/FoundationAMI.md)
 
 9. Setup bastion (On Windows use WinSCP or pscp.exe from the Putty package.)
 
