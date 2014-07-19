@@ -18,8 +18,8 @@ We are actively tuning the steps and will post the specific steps here for OSCON
 
 # Tutorial
 
-1. [Sign up for AWS](Step1.md)
-2. [Log into AWS Console](Step2.md)
+1. [Sign up for AWS](tutorial/Step1.md)
+2. [Log into AWS Console](tutorial/Step2.md)
 3. Create keypair
 
     4. Browse to [https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#KeyPairs:](https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#KeyPairs:)
