@@ -7,6 +7,20 @@ task cloneRepo(type: CloneRepo) {
 task patchRepo {
     dependsOn 'cloneRepo'
     doFirst {
+        def app = new File(cloneRepo.gitDir, 'karyon-examples/hello-netflix-oss/src/main/java/com/netflix/hellonoss/server/HelloWorldApp.java')
+        def contents = app.text
+        app.withWriter { out ->
+            out << contents
+                    .replace('//, KaryonEurekaModule.class', ', KaryonEurekaModule.class')
+                    .replace('interceptorSupport.forUri("/hello").interceptIn(AuthInterceptor.class);', '//interceptorSupport.forUri("/hello").interceptIn(AuthInterceptor.class);')
+        }
+
+        def scanning = new File(cloneRepo.gitDir, 'karyon-examples/hello-netflix-oss/src/main/resources/hello-netflix-oss.properties')
+        def scanContents = scanning.text
+        scanning.withWriter { out ->
+            // Let jersey scan Eureka package for healthcheck
+            out << scanContents.replace('com.netflix.hellonoss', 'com.netflix.hellonoss,com.netflix.appinfo')
+        }
     }
 }
 
@@ -16,6 +30,7 @@ task buildRepo(type: Build) {
     arguments = [':karyon-examples:hello-netflix-oss:distZip', '-x', 'check', '-x', 'signArchives', '-x', 'sourcesJar', '-x', 'javadocJar', '--stacktrace']
 }
 
+import org.apache.tools.ant.filters.*
 ospackage {
     def dist = new File(buildRepo.moduleDir, 'karyon-examples/hello-netflix-oss/build/distributions/hello-netflix-oss-2.1.00-RC3.zip')
     from( zipTree(dist) ) {
@@ -23,6 +38,7 @@ ospackage {
     }
     from(file('root')) {
         into('/')
+        filter ReplaceTokens, tokens: [ 'KARYON_OPTS': System.getenv('KARYON_OPTS') ?: '' ]
     }
     postInstall('mv /opt/hello-netflix-oss* /opt/hello-netflix-oss') // zip was nested
     postInstall('echo manual > /etc/init/tomcat7.override')
