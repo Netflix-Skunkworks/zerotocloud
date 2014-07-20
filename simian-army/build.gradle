@@ -20,14 +20,10 @@ task patchRepo {
 
         def chaos = new File(cloneRepo.gitDir, 'src/main/resources/chaos.properties')
         def chaosContent = chaos.text
-        chaos.withWriter { out ->
-            out << chaosContent
-                    .replace('leashed = true', 'leashed = false')
-                    //.replace('ASG.enabled = false', 'ASG.enabled = true') // Set true for Opt-out
-                    //.replace('ASG.probability = 1.0', 'ASG.probability = 0.9')
-                     + 'simianarmy.chaos.ASG.edda.enabled=true' // Target specific ASG monkey-target
-                     + 'simianarmy.chaos.ASG.edda.probabilty=1.0' // Target specific ASG monkey-target
-        }
+                .replace('leashed = true', 'leashed = false') +
+                'simianarmy.chaos.ASG.edda.enabled=true' + // Target specific ASG monkey-target
+                'simianarmy.chaos.ASG.edda.probabilty=1.0' // Target specific ASG monkey-target
+        chaos.withWriter { it << chaosContent }
     }
 }
 

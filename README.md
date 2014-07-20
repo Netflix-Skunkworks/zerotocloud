@@ -41,8 +41,8 @@ When all done, ilrelevant of how far you get make sure to read the Clean up inst
 Setting up infrastructure can be frought with problems, so if you've made this far in the allocated time, congratulate yourself.
 Here are some additional exercises which can help expand your knowledge of the Netflix stack or the AWS in general.
 
-* [Simian Army](tutorial/SimianArmy.md)
 * [Karyon](tutorial/Karyon.md)
+* [Simian Army](tutorial/SimianArmy.md)
 * [Enable Eureka Integration in Asgard](tutorial/EurekaAsgard.md)
 * [AWS CLI](tutorial/AwsCli.md)
 * (TBD) Turbine (needs an app with Hystrix running)
