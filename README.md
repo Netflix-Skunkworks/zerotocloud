@@ -43,10 +43,10 @@ Here are some additional exercises which can help expand your knowledge of the N
 
 * [Simian Army](tutorial/SimianArmy.md)
 * [Karyon](tutorial/Karyon.md)
+* [Enable Eureka Integration in Asgard](tutorial/EurekaAsgard.md)
 * [AWS CLI](tutorial/AwsCli.md)
 * (TBD) Turbine (needs an app with Hystrix running)
-* [ICE](tutorial/ICE.md)
-* (TBD) <a href="https://github.com/Netflix/asgard/wiki/Eureka-Integration" target="_blank">Enable Eureka Integration in Asgard</a>
+* (TBD) [ICE](tutorial/ICE.md)
 
 # Clean up
 
