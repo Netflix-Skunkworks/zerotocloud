@@ -1,13 +1,55 @@
-import nebula.core.tasks.Download
+buildscript {
+    repositories { jcenter() }
+    dependencies { classpath 'org.scaldingspoon.gradle:gradle-waroverlay-plugin:0.9.3' }
+}
+
+apply plugin: 'war'
+
+import de.undercouch.gradle.tasks.download.Download
 task download(type: Download) {
-    downloadBase = 'https://github.com/Netflix/asgard/releases/download/asgard-1.5'
-    downloadFileName = 'asgard.war'
+    src 'https://github.com/Netflix/asgard/releases/download/asgard-1.5/asgard.war'
+    onlyIfNewer true
+    dest new File(buildDir, 'asgard.war')
+}
+
+task unzipFile(dependsOn: download, type: Copy) {
+    from zipTree(download.dest)
+    include 'WEB-INF/web.xml'
+    includeEmptyDirs = false
+    into "$buildDir/unpackedWebXml"
+}
+
+task injectWebXml {
+    dependsOn unzipFile
+    doFirst {
+        def webxml = new File(unzipFile.destinationDir, 'WEB-INF/web.xml')
+        def content = webxml.text
+        webxml.withWriter { out ->
+            out << content.replace('</web-app>', '    <security-constraint><web-resource-collection><web-resource-name></web-resource-name><url-pattern>/*</url-pattern></web-resource-collection><auth-constraint><role-name>asgard</role-name></auth-constraint></security-constraint><login-config><auth-method>BASIC</auth-method><realm-name>asgard</realm-name></login-config>\n</webapp>')
+        }
+    }
+}
+
+war {
+    dependsOn(injectWebXml)
+    from(unzipFile)
+}
+
+apply plugin: 'waroverlay'
+warOverlay {
+    includeWarJars true
+}
+
+dependencies {
+    runtime files(download.dest) {
+        builtBy tasks.download
+    }
 }
 
 // TODO tomcat_extra_opts: "-Darchaius.deployment.applicationId=asgard -Dnetflix.datacenter=cloud"
 import org.apache.tools.ant.filters.*
 ospackage {
-    from(download) {
+    from(war) {
         into('/var/lib/tomcat7/webapps/')
         rename(/.*/, 'ROOT.war')
     }
@@ -33,6 +75,6 @@ ospackage {
     def eureka = System.getenv("EUREKA_ELB")
     if (eureka) {
         println "Provide Eureka Configuration for us-west-2"
-        postInstall("echo 'eureka.regionsToServers = [(Region.US_WEST_2): \"http://${eureka}\"]' >> /usr/share/tomcat7/.asgard/Config.groovy")
+        postInstall("echo 'eureka.regionsToServers = [(Region.US_WEST_2): \"${eureka}\"]' >> /usr/share/tomcat7/.asgard/Config.groovy")
     }
 }

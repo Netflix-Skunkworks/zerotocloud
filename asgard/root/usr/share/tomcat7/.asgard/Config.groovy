@@ -18,4 +18,7 @@ cloud {
         }
     }
 }
+eureka {
+    urlContext = ''
+}
 

@@ -16,3 +16,4 @@ Make sure to use that DNS name below instead of just copying like you have in pr
 
 ## Deploy
 
+FYI, this can not be done as a Rolling Push, since Asgard will disable creation of new instances while killing itself.
