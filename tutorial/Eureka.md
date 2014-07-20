@@ -24,7 +24,7 @@ Everything from the Health Check URL to the port numbers can stay the same, just
 3. Follow "Create an ELB", using the name "eureka" instead of "asgard". And instead of HTTP:7001/healthcheck for the Health Check URL, use "HTTP:7001/api/v2/view/instances;_limit=1". The protocol and port are the same, but the path is different.
 4. Follow "Create Auto Scaling Group" using the name "eureka" instead of "asgard".
 5. Follow "View instance" to get the DNS Name for eureka's ELB, i.e. _eureka--frontend_. It can Eureka quite a few minutes to start up, because it is trying find other instances.
-6. Using that DNS Name, visit _http://<ELB DNS name>/_
+6. Using that DNS Name, visit _http://<ELB DNS name>/_. ![](images/Eureka.png)
 
 Review <a href="https://github.com/Netflix/eureka/wiki/Eureka-REST-operations" target="_blank">Eureka's REST API</a> for further documentation.
 
