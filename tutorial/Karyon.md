@@ -59,8 +59,8 @@ For that we'll have to to the AWS Console. Karyon will open two ports, one for i
 14. In the dialog that comes up, click "Add Rule". Select "Custom TCP Rule". Set the port to 8888. Set source to Anywhere.
 15. Click "Add Rule" button again. Select "Custom TCP Rule". Set the port to 8077. Set source to Anywhere.
 16. Click "Save" to close the dialog. It is very likely that the UI won't update.
-17. Browse to the _http://<Instance DNS Name>:8888/hello_. Since this is a template application, there is no rich API to query.
-18. Browse to the _http://<Instance DNS Name>:8088/admin_. This page is visual, explore it. You'll find the ability to change JMX settings, view Archaius properties, Eureka caches.
+17. Browse to the _http://*Instance DNS Name*:8888/hello_ URL. Since this is a template application, there is no rich API to query.
+18. Browse to the _http://*Instance DNS Name*:8088/admin_ URL. This page is visual, explore it. You'll find the ability to change JMX settings, view Archaius properties, Eureka caches.
 19. Confirm instance is in Eureka, by browsing to the Eureka ELB address. ![](images/Eureka-WithKaryon.png)
 
 ## Red/Black Deploy of Karyon
@@ -90,5 +90,5 @@ Then perform a Red/Black Deployment:
 6. Click the "Disable" button in the first ASG. For ASGs behind a load balancer, Asgard will stop replacement of instances and remove the existing instances from the load balancer. When Eureka is integrated, Asgard will unregister the instances from Eureka.
 7. Expand the "Count" plus sign to see the instance in the new ASG.
 8. Click the instance's link to find the DNS Name for the instance.
-9. Browse to the _http://<Instance DNS Name>:8888/hello_. You should see a new message.
+9. Browse to the _http://*Instance DNS Name*:8888/hello_. You should see a new message.
 10. If satified by the new message, go back to the cluster screen and click "Delete" on the first ASG.
