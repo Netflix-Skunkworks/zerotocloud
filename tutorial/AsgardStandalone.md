@@ -7,7 +7,9 @@ An example is provided at the end of this page.
 
 The general flow for any new application will be to register the Application, create an ELB (if needed), create the first ASG, wait for the first instance to come up, and finally visit it via the DNS Name. 
 We're going to run through those steps here for Asgard, but other steps in the tutorial will have you coming back here. 
-When they do, follow the "Create Application", "Create an ELB", "
+When they do, follow the "Create Application", "Create an ELB", "Create Auto Scaling Group", and "View instance" parts below, replacing the name "asgard" if the application you're working on. 
+Taking note if they require any modifications, they will sometimes use slightly different ports or health check URLs.
+Also when re-using this step in the future, the URL for asgard will be the one you're hosting in an ASG and not localhost.
 
 ## Run Asgard
 
@@ -39,51 +41,51 @@ You should be viewing us-west-2, if not use the pull down at the top of page to 
 1. Navigate to _ELB | Elastic Load Balancer_
 2. Click "Create New Load Balancer"
 3. Choose "asgard" as the Application
+4. Type (or select) "elb-http-public" in the "Security Group" text box
+5. Change "Health Check"’s Healthy Threshold to “5”
+6. Click "Create New Load Balancer"
+7. It’ll be named "asgard--frontend"
 
-        19. Type (or select) elb-http-public in "Security Group"
+## Create Auto Scaling Group (ASG)
 
-        20. Change "Health Check"’s Healthy Threshold to “5”
+1. Navigate Cluster, via _Cluster | Auto Scaling Groups_
+2. Click "Create New Auto Scaling Group"
+3. Select "asgard" as the Application
+4. Set "Min", “Max” and “Desired Capacity” to 1
+5. Type "asgard--frontend" in "Load Balancer" field.
+6. In "AMI Image ID", start to type asgard. Select the baked version of Asgard. When building and baking with unique version numbers, it becomes more obvious which version you're choosing.
+7. Ensure "SSH Key" is "zerotocloud"
+8. Set "Security Group" to “asgard”
+9. Set "IAM Instance Profile" to “jumphost”. When following these instructions for other Applications, they might not use an "IAM Instance Profile" since they don't require a Role.
+10. Click "Create New Auto Scaling Group"
+11. A Launch Configuration will implicitly be created, and an instance will start booting. Expect a message like "Launch Config 'asgard-20140718181745' has been created. Auto Scaling Group 'asgard' has been created."
 
-        21. Click "Create New Load Balancer"
+Technically an ASG can be heterogenous with regards to the AMI being used. 
+Meaning, that a different Launch Configuration can be used in the future, causing some instances to be created with different AMIs. 
+This is discouraged at Netflix, because it introduces an unnecessary leve of confusion when looking at an ASG. 
+The expectation is that an ASG is homogenous and if a new AMI is needed another ASG is created.
 
-        22. It’ll be named "asgard--frontend"
+## View instance
 
-    68. Navigate Cluster, via Cluster | Auto Scaling Groups
+1. Navigate to <a href="http://localhost:8080/us-west-2/loadBalancer/show/asgard--frontend" target="_blank">http://localhost:8080/us-west-2/loadBalancer/show/asgard--frontend</a>. Or by going to _ELB | Elastic Load Balancers_ and finding your ELB.
+2. Ensure instance is InService under "ELB State". It will start in OutOfService with a description of “Instance registration is still in progress.”. Keep refreshing.
+3. Visit the "DNS Name" in your browser, e.g. asgard--frontend-1362846407.us-west-2.elb.amazonaws.com. For all ELBs, this is very relevant, since this is the public URL to access it. It would be recommended in a production environment to create a DNS CNAME to this name.
 
-        23. Click "Create New Auto Scaling Group"
+## End standalone
 
-        24. Select "asgard" as the Application
+Once an Asgard instance is running behind an ELB, we no longer need the standalone version running on the jumphost. Ctrl-C out of the _java -jar ..._ process running in your terminal.
 
-        25. Set "Min", “Max” and “Desired Capacity” to 1
+## Troubleshooting
 
-        26. Type "asgard--frontend" in Load Balancer
+If you want to SSH to the instance, visit the application's Security Group in the Console. Then add a rule on the Incoming tab. Specifically you want to select "ssh" from Anywhere to the Asgard security group in the console. 
+Then you can run _ssh -i zerotocloud.pem ubuntu@<DNS Name>_. The "DNS Name" is at the top of the instance page.
 
-        27. In "AMI Image ID", start to type asgard. Select the baked version of Asgard
-
-        28. Ensure "SSH Key" is zerotocloud
-
-        29. Set "Security Group" to “asgard”
-
-        30. Set "IAM Instance Profile" to “jumphost” (Could be customized)
-
-        31. Click "Create New Auto Scaling Group"
-
-        32. Launch Config will implicitly be created, and an instance will start booting. "Launch Config 'asgard-20140718181745' has been created. Auto Scaling Group 'asgard' has been created."
-
-    69. Visit baked instance
-
-        33. Navigate to <a href="http://localhost:8080/us-west-2/loadBalancer/show/asgard--frontend" target="_blank">http://localhost:8080/us-west-2/loadBalancer/show/asgard--frontend</a>
-
-        34. Ensure instance is InService under "ELB State". It will start in OutOfService with a description of “Instance registration is still in progress.”. Keep refreshing.
-
-        35. Visit "DNS Name" in your browser, e.g. asgard--frontend-1362846407.us-west-2.elb.amazonaws.com (Record this)
-
-        36. Troubleshooting
-
-            2. If you want to SSH to the instance, add ssh from Anywhere to the Asgard security group in the console. Then you can run ssh -i zerotocloud.pem ubuntu@<DNS Name>
-
-        37. When successful, Ctrl-C out of the java -jar line
-
+If the instance never comes up, it could be for a myriad of reasons. 
+The most likely is that the AMI was sufficient to start the application, and hence it's not passing it's heathcheck. 
+You can use the suggestion above to _ssh_ to the instance to see what it's state is. 
+The other common occurance is that the networking isn't right. 
+Security Groups are very powerful, but they can be easy to get wrong and hard to diagnose.
+Ensure the instance is healthy, then review your Security Group settings.
 
 # AWS CLI
 
