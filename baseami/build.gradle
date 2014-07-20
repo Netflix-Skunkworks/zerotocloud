@@ -15,6 +15,8 @@ ospackage {
 
     postInstall('rm -fr /var/lib/tomcat7/webapps/ROOT')
 
+    postInstall('cp /usr/share/tomcat7/logrotate.template /etc/logrotate.d/tomcat7')
+
     // Defaults used by Asgard
     postInstall("perl -p -i -e 's/port=\"8080\"/port=\"7001\"/gi' /var/lib/tomcat7/conf/server.xml")
 }

@@ -19,13 +19,31 @@ task unzipFile(dependsOn: download, type: Copy) {
     into "$buildDir/unpackedWebXml"
 }
 
+def securityConstraint = """
+        <security-constraint>
+                <web-resource-collection>
+                        <web-resource-name></web-resource-name>
+                        <url-pattern>/*</url-pattern>
+                        <http-method>DELETE</http-method>
+                        <http-method>PUT</http-method>
+                        <http-method>HEAD</http-method>
+                        <http-method>OPTIONS</http-method>
+                        <http-method>TRACE</http-method>
+                        <http-method>POST</http-method>
+                </web-resource-collection>
+                <auth-constraint><role-name>asgard</role-name></auth-constraint>
+        </security-constraint>
+        <login-config>
+            <auth-method>BASIC</auth-method><realm-name>asgard</realm-name>
+        </login-config>
+        """
 task injectWebXml {
     dependsOn unzipFile
     doFirst {
         def webxml = new File(unzipFile.destinationDir, 'WEB-INF/web.xml')
         def content = webxml.text
         webxml.withWriter { out ->
-            out << content.replace('</web-app>', '    <security-constraint><web-resource-collection><web-resource-name></web-resource-name><url-pattern>/*</url-pattern></web-resource-collection><auth-constraint><role-name>asgard</role-name></auth-constraint></security-constraint><login-config><auth-method>BASIC</auth-method><realm-name>asgard</realm-name></login-config>\n</webapp>')
+            out << content.replace('</web-app>', "${securityConstraint}\n</web-app>")
         }
     }
 }
