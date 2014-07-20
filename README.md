@@ -28,57 +28,22 @@ We are actively tuning the steps and will post the specific steps here for OSCON
 8. [Create Foundation AMI](tutorial/FoundationAMI.md)
 9. [Setup Jumphost](tutorial/SshJumphost.md)
 10. [Setup Credentials](tutorial/Credentials.md)
-11. [Build and bake BaseAMI](tutorial/BaseAMI.md)
+11. [Build and Bake BaseAMI](tutorial/BaseAMI.md)
 12. [Build and Bake Asgard](tutorial/AsgardBake.md)
 13. [Standup asgard using asgard](tutorial/AsgardStandalone.md)
+14. [Build and Bake Edda](tutorial/Edda.md)
+15. [Build and Bake Eureka](tutorial/Eureka.md)
 
-14. Build Edda Package
+When all done, ilrelevant of how far you get make sure to read the Clean up instructions below, so that you don't get charged for resources that you're not using.
 
-    70. `cd ~/zerotocloud`
+# Extras
 
-    71. `./gradlew :edda:buildDeb`
+Settings up infrastructure can be frought with problems, so if you've made this far in the allocated time, congratulate yourself.
+Here are some additional exercises which can help expand your knowledge of the Netflix stack or the AWS in general.
 
-    72. `sudo aminate -e ec2_aptitude_linux -b ubuntu-base-ami-ebs edda/build/distributions/edda_1.0.0_all.deb`
+* [Simian Army](tutorial/SimianArmy.md)
+* [Karyon](tutorial/Karyon.md)
 
-15. Deploy Edda
-
-    73. Use browser to DNS Name from Step 13
-
-    74. Follow 13 d-i but for Edda, and for health check use  HTTP:7001/api/v2/view/instances;_limit=1
-
-    75. Using the edda--frontend DNS Name: `http://<ELB DNS name>/api/v2/view/instances;_pp`
-
-    76. Review [https://github.com/Netflix/edda/wiki/REST](https://github.com/Netflix/edda/wiki/REST) for further documentation
-
-16. Build and Bake Eureka
-
-    77. `cd ~/zerotocloud`
-
-    78. `./gradlew :eureka:buildDeb`
-
-    79. `sudo aminate -e ec2_aptitude_linux -b ubuntu-base-ami-ebs eureka/build/distributions/eureka_1.0.0_all.deb`
-
-17. Deploy Eureka
-
-    80. Use browser to DNS Name from Step 13
-
-    81. Follow 13 e-i but use eureka
-
-    82. Using the eureka--frontend DNS Name, navigate to  `http://<ELB DNS name>/`
-
-18. (Extra) Killing an instance, see it come back up
-
-19. (Extra) Build/Bake/Deploy Simian Army
-
-    83. `cd ~/zerotocloud`
-
-    84. `./gradlew :simian-army:buildDeb`
-
-    85. `sudo aminate -e ec2_aptitude_linux -b ubuntu-base-ami-ebs simian-army/build/distributions/simian-army_1.0.0_all.deb`
-
-        38. Might have to create SimpleDB Domain named SIMIAN_ARMY in asgard if not automatically created
-
-    86. Deploy Simian Army by following 13 d-i except that healthcheck url is `http://<ELB DNS name>/api/v1/chaos`
 
 20. (Extra) Red/Black deploy Edda
 
@@ -118,49 +83,6 @@ We are actively tuning the steps and will post the specific steps here for OSCON
 
     98. Show how we’re making the packages
 
-23. (Extra) [Karyon](https://github.com/Netflix/Karyon) example
-
-    99. `cd ~/zerotocloud`
-
-    100. `./gradlew :karyon:buildDeb`
-
-    101. `sudo aminate -e ec2_aptitude_linux -b ubuntu-base-ami-ebs karyon/build/distributions/karyon_1.0.0_all.deb`
-
-    102. Use browser to DNS Name from Step 13
-
-    103. Follow 13 e-i but use karyon
-
-        43. use 8077,8888 as the Security Group port
-
-        44. 8888 as the Listener
-
-        45. Health should be HTTP:8077/admin
-
-        46. No need for an IAM Instance Profile
-
-    104. Using the eureka--frontend DNS Name, navigate to  `http://<ELB DNS name>/`
-
-24. Red/Black Deploy of Karyon
-
-    105. We’re going to modify Karyon to register with eureka
-
-    106. `cd ~/zerotocloud`
-
-    107. `KARYON_OPTS="-Deureka.serviceUrl.default=http://<ELB DNS NAME from 17>/v2/" ./gradlew :karyon:buildDeb`
-
-        47. **`E.g.** `**http://**eureka--frontend-1507600573.us-west-2.elb.amazonaws.com/v2/
-
-    108. `sudo aminate -e ec2_aptitude_linux -b ubuntu-base-ami-ebs karyon/build/distributions/karyon_1.0.0_all.deb`
-
-    109. Go to Eureka Security group and allow 7001 from karyon
-
-    110. Go to Cluster | Clusters
-
-    111. Select AMI Image Id, select most recently built.
-
-    112. Click "Create Next Group karyon-v000"
-
-    113. Can go to Eureka’s DNS Name to see HELLO-NETFLIX-OSS
 
 25. (Extra) Developing for the cloud
 
@@ -186,7 +108,10 @@ We are actively tuning the steps and will post the specific steps here for OSCON
 
 28. (Extra) Build/Bake/Deploy Genie
 
-29. Clean up
+18. [Killing an instance](tutorial/ASG)
+
+
+# Clean up
 
     122. In Asgard, delete all resources (to save money)
 
@@ -202,43 +127,14 @@ We are actively tuning the steps and will post the specific steps here for OSCON
 
     124. On the Snapshots section, delete all of the snapshots
 
-Nice to haves:
+Nice to haves this tutorial:
 
 * Tomcat-users.xml Password protection for Asgard
-
-* server.xml to use port 7001, to reduce number fields that have to changed.
-
 * UDF variables from Asgard aren’t in the ubuntu user’s env
-
-* Speed up edda build, it’s taking an exorbitant time.
-
 * Have versions of modules match what is being wrapped
-
 * Stop tomcat on karyon instance
-
-* ElasticSearch for Edda
-
-* Disable mongod pre-allocated shards
-
 * Tomcat7 log rotations
-
-* Format and mount xvdb xvdc on startup
-
-Pre-talk
-
-* Pictures of AWS and Asgard screens
-
-* Learn more about beanstalk, OpsWorks
-
-* Test with new account, that isn’t EC2 Classic
-
-* Link Shortener for the steps, if there’s few enough.
-
-* Windows Instructions
-
-Questions
-
-* What should we do about VPC? Can a new account have public instances?
+* Multiple Eureka instances in different zones.
 
 Interesting Links
 
