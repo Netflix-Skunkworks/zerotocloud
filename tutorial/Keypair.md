@@ -1,4 +1,4 @@
-# Step 3 - Keypair
+# Step 3 - Key Pair
 
 A keypair is a certificate used for identification in SSH. Amazon has a feature where it will put the public component of a keypair onto an instance during startup. So, as long as you have the private part, and your Security Groups are configured correctly, you can SSH into an instance.
 
