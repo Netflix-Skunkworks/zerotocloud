@@ -43,6 +43,7 @@ We can now "bake".
 
     sudo aminate -e ec2_aptitude_linux -b ubuntu-foundation -n ubuntu-base-ami baseami/build/distributions/baseami_1.0.0_all.deb
 
+It is run as root, via _sudo_, so that it can add and remove mount points.
 The _-e_ argument tells Aminator when environment it is in, in this case we're tell it to us Aptitude.
 The _-b_ argument is name of the AMI to start with, this is the one we created in [Step 8](FoundationAMI.d).
 The _-n_ argument says to use a "named" image, which is easier to keep track of. There will still be a ami-1234567 like name associated the resulting AMI.

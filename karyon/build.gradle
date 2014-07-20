@@ -12,6 +12,7 @@ task patchRepo {
         app.withWriter { out ->
             out << contents
                     .replace('//, KaryonEurekaModule.class', ', KaryonEurekaModule.class')
+                    // It's impossible to test REST calls from a browser if a HTTP Header is required.
                     .replace('interceptorSupport.forUri("/hello").interceptIn(AuthInterceptor.class);', '//interceptorSupport.forUri("/hello").interceptIn(AuthInterceptor.class);')
         }
 
@@ -24,8 +25,22 @@ task patchRepo {
     }
 }
 
+task patchEndpoint {
+    dependsOn 'cloneRepo'
+    doFirst {
+        def app = new File(cloneRepo.gitDir, 'karyon-examples/hello-netflix-oss/src/main/java/com/netflix/hellonoss/server/HelloworldResource.java')
+        def contents = app.text
+        app.withWriter { out ->
+            out << contents
+                    .replace('Hello Netflix OSS component!', 'Hello Zero To Cloud developer!')
+        }
+
+    }
+}
+
 task buildRepo(type: Build) {
     dependsOn 'cloneRepo', 'patchRepo'
+    mustRunAfter 'patchEndpoint'
     moduleDir = cloneRepo.gitDir
     arguments = [':karyon-examples:hello-netflix-oss:distZip', '-x', 'check', '-x', 'signArchives', '-x', 'sourcesJar', '-x', 'javadocJar', '--stacktrace']
 }
