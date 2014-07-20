@@ -29,4 +29,10 @@ ospackage {
     }
     postInstall('mv /etc/tomcat7/tomcat-users.xml.asgard /etc/tomcat7/tomcat-users.xml')
     postInstall('echo "export CATALINA_OPTS=\\"\\$CATALINA_OPTS -DonlyRegions=us-west-2\\"" >> /usr/share/tomcat7/bin/setenv.sh')
+
+    def eureka = System.getenv("EUREKA_ELB")
+    if (eureka) {
+        println "Provide Eureka Configuration for us-west-2"
+        postInstall("echo 'eureka.regionsToServers = [(Region.US_WEST_2): \"http://${eureka}\"]' >> /usr/share/tomcat7/.asgard/Config.groovy")
+    }
 }

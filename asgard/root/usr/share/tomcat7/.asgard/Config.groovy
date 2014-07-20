@@ -16,3 +16,4 @@ cloud {
         }
     }
 }
+import com.netflix.asgard.Region
