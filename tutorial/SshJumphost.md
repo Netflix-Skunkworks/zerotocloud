@@ -3,8 +3,12 @@
 The jumphost up to this point is running a stock copy of Ubuntu, so we're going to jump onto it and configure it. 
 The first half will be done locally and the second half (and most of the rest of the tutorial) will be done on the instance.
 We've chosen to do as much as possible on the command line, to help ensure that the steps can be followed exactly. Commands are expect to be run exactly as provided and are formatted like `this`.
-The commands we're using locally are _ssh_ and _scp_, which will be available on a Mac or on a Linux box by default. 
-On Windows, we recommend using PuTTY, which provides _pscp.exe_ and _putty.exe_ on the command line, but these could easily be done via the UI.
+The commands we're using locally are _ssh_ and _scp_, which will be available on a Mac or on a Linux box by default.
+ 
+### PuTTY
+
+<a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html" target="_blank">On Windows, Amazon recommends using PuTTY</a>.
+Please follow their instructions when it pertains to connecting to your instance below.
 
 ## 1. Terminal
  
@@ -15,10 +19,12 @@ For UNIX, we also have to tighen down the permissions of the pem file for ssh to
     cd ~/Downloads
     chmod 0600 zerotocloud.pem
     
-For Windows:
+For Windows, use the instructions above to convert your .pem to a .ppk using PuTTYgen and save the file to My Documents. Use a cmd.exe terminal for further commands.
 
-    cd %HOME%/Downloads
-    
+    cd "My Documents"
+
+The key parts will be the key and the host name prefixed by "ubuntu@". ![](images/Putty-host.png) ![](images/Putty-forward.png)
+
 ## 2. Save Jumphost
 
 The jumphost created in [Step 4](Jumphost.md) will be referenced a few times, so for convenience let's save it's address.
@@ -42,8 +48,8 @@ For UNIX:
     
 For Windows:
 
-    scp -i zerotocloud.pem credentials.csv ubuntu@%JUMPHOST%:credentials.csv
-    scp -i zerotocloud.pem zerotocloud.pem ubuntu@%JUMPHOST%:zerotocloud.pem
+    "C:\Program Files\PuTTY\pscp.exe" -i zerotocloud.ppk credentials.csv ubuntu@%JUMPHOST%:credentials.csv
+    "C:\Program Files\PuTTY\pscp.exe" -i zerotocloud.ppk zerotocloud.pem ubuntu@%JUMPHOST%:zerotocloud.pem
 
 ## 4. Log onto jumphost
 
@@ -53,9 +59,7 @@ For UNIX:
 
     ssh -i zerotocloud.pem -L 8080:localhost:8080 ubuntu@$JUMPHOST
 
-For Windows:
-
-    ssh -i zerotocloud.pem -L 8080:localhost:8080 ubuntu@%JUMPHOST%
+For Windows, use the instructions above, with the one additional change of port forwarding. ![](images/Putty-forward.png)
 
 ## 5. Update jumphost
 

@@ -65,9 +65,7 @@ FYI, The last two items would normally be cleaned up by Janitor monkey.
 
 # TODO
 
-* Tomcat-users.xml Password protection for Asgard
 * UDF variables from Asgard aren’t in the ubuntu user’s env
 * Have versions of modules match what is being wrapped
 * Stop tomcat on karyon instance
-* Tomcat7 log rotations
 * Multiple Eureka instances in different zones.
