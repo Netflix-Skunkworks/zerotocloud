@@ -20,10 +20,10 @@ We are actively tuning the steps and will post the specific steps here for OSCON
 
 1. [Sign up for AWS](tutorial/Signup.md)
 2. [Log into AWS Console](tutorial/Login.md)
-3. [Create keypair](tutorial/Keypair.md)
+3. [Create Key Pair](tutorial/Keypair.md)
 4. [Create Jumphost](tutorial/Jumphost.md)
 5. [Create a role](tutorial/CreateRole.md)
-6. [Create an user](tutorial/CreateUser.md)
+6. [Create a user](tutorial/CreateUser.md)
 7. [Create Security Group for ELBs](tutorial/SecurityGroups.md)
 8. [Create Foundation AMI](tutorial/FoundationAMI.md)
 9. [Setup Jumphost](tutorial/SshJumphost.md)
