@@ -1,10 +1,10 @@
 # Step 9 - Setup Jumphost
 
-The jumphost up to this point is running a stock copy of Ubuntu, we're going to jump onto it and configure it. 
-The first half will be done locally and the second half (and most of the rest of the tutorial) will be done the instance).
-We've choosen to do as much as possible on the command line, to help ensure the steps can be followed exactly. Commands are expect to be run exactly as provided, they are formatted like `this`.
+The jumphost up to this point is running a stock copy of Ubuntu, so we're going to jump onto it and configure it. 
+The first half will be done locally and the second half (and most of the rest of the tutorial) will be done on the instance.
+We've chosen to do as much as possible on the command line, to help ensure that the steps can be followed exactly. Commands are expect to be run exactly as provided and are formatted like `this`.
 The commands we're using locally are _ssh_ and _scp_, which will be available on a Mac or on a Linux box by default. 
-On Windows, we recommend PuTTY, which provides _pscp.exe_ and _putty.exe_ on the command line, but these could easily be done via the UI.
+On Windows, we recommend using PuTTY, which provides _pscp.exe_ and _putty.exe_ on the command line, but these could easily be done via the UI.
 
 ## 1. Terminal
  
