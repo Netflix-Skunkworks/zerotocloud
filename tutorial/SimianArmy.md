@@ -5,6 +5,8 @@ Chaos Monkey, the first member, is a resiliency tool that helps ensure that your
 Janitor Monkey will monitor for unused resources and then clean them up.
 Conformity Monkey looks for instances that are not conforming to predefined rules.
 
+![](images/SimianArmy.png)
+
 ## Bake Simian Army
 
 The Simian Army is actually a single application that can run all the monkeys.

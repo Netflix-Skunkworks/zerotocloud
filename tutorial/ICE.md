@@ -3,6 +3,9 @@
 Ice provides a birds-eye view of our large and complex cloud landscape from a usage and cost perspective. 
 
 Instructions for settings up ICE are TBD. 
+
+![](images/ice.png)
+
 The difficulty in settings up ICE during a tutorial is that the billing reports that ICE needs to process won't be available for a couple of hours.
  
 1. Open up two tabs in the AWS console
