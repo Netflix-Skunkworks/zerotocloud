@@ -1,45 +1,44 @@
 # Step 13 - Stand alone Asgard
 
-To responsible stand up an instance, we want it in an ASG, with a security group and behind a load balancer. 
+To responsibly stand up an instance, we want it in an ASG, with a security group and behind a load balancer. 
 In AWS, this also requires a Launch Configuration to define the ASG.
-We could stand this up with the [AWS CLI](http://aws.amazon.com/cli/) tool, but it's quite tedious. 
+We could stand this up with the [AWS CLI](http://aws.amazon.com/cli/) tool or the AWS Console, but it's quite tedious. 
 An example is provided at the end of this page.
 
-    63. `wget `[https://github.com/Netflix/asgard/releases/download/asgard-1.5/asgard-standalone.jar](https://github.com/Netflix/asgard/releases/download/asgard-1.5/asgard-standalone.jar)
+The general flow for any new application will be to register the Application, create an ELB (if needed), create the first ASG, wait for the first instance to come up, and finally visit it via the DNS Name. 
+We're going to run through those steps here for Asgard, but other steps in the tutorial will have you coming back here. 
+When they do, follow the "Create Application", "Create an ELB", "
 
-    64. `java -DonlyRegions=us-west-2 -Xmx2048m -jar asgard-standalone.jar`
+## Run Asgard
 
-    65. Use browser to [http://localhost:8080](http://localhost:8080/us-west-2)/ (Should be going to us-west-2, once started)
+Instead we're going to use Asgard to standup Asgard. 
+This will require us to run Asgard on the jumphost for a little while.
 
-    66. Navigate to App -> Application
+    wget https://github.com/Netflix/asgard/releases/download/asgard-1.5/asgard-standalone.jar
+    java -DonlyRegions=us-west-2 -Xmx2048m -jar asgard-standalone.jar
 
-        7. Click "Create New Application"
+## Create Application
 
-        8. Enter "asgard" as Name
+In your local browser, navigate to [http://localhost:8080/](http://localhost:8080/us-west-2). 
+You should be viewing us-west-2, if not use the pull down at the top of page to change your region.
 
-        9. Type in a Description, Owner and Email
+1. Navigate to _App | Application_
+2. Click "Create New Application"
+3. Enter "asgard" as Name
+4. Fill in a the _Description_, _Owner_ and _Email_ fields.
+5. Click "Create New Security Group" button.
+6. If you see "vpc…" in the VPC field, make sure to click the checkbox.
+7. Click "Create New Security Group". It is very likely to get an error message saying _"Could not create Security Group: java.lang.NullPointerException"_. Just click again the button again and you should get another message that says “Security Group 'asgard' already exists.”, which confirms that it was created.
+8. After creation, click "Edit Security Group"
+9. Check the "Open" checkbox next to elb-http-public
+10. Click "Update Security Group"
+11. Ensure this new permission is added to "Ingress Permissions" row.
 
-        10. Click "Create New Security Group" button
+## Create an ELB
 
-        11. If you see "vpc…" in the VPC field, make sure to click the checkbox.
-
-        12. Click "Create New Security Group"
-
-            1. Very likely to get "Could not create Security Group: java.lang.NullPointerException", Just click again and get a “Security Group 'asgard' already exists.” message.
-
-        13. After creation, click "Edit Security Group"
-
-        14. Check the "Open" checkbox next to elb-http-public
-
-        15. Click "Update Security Group"
-
-        16. Ensure this new permission is added to "Ingress Permissions" row.
-
-    67. Navigate to ELB | Elastic Load Balancer
-
-        17. Click "Create New Load Balancer"
-
-        18. Choose "asgard" as the Application
+1. Navigate to _ELB | Elastic Load Balancer_
+2. Click "Create New Load Balancer"
+3. Choose "asgard" as the Application
 
         19. Type (or select) elb-http-public in "Security Group"
 
