@@ -88,7 +88,7 @@ Then perform a Red/Black Deployment:
 4. Click "Create Next Group karyon-v000". A task page will come up to show the progress of calls to Amazon. Asgard will also wait for instances to come up.
 5. Return to the Karyon Cluster page, there is a link at the top and bottom of the page.
 6. Click the "Disable" button in the first ASG. For ASGs behind a load balancer, Asgard will stop replacement of instances and remove the existing instances from the load balancer. When Eureka is integrated, Asgard will unregister the instances from Eureka.
-6. Expand the "Count" plus sign to see the instance in the new ASG.
-7. Click the instance's link to find the DNS Name for the instance.
-8. Browse to the _http://<Instance DNS Name>:8888/hello_. You should see a new message.
-9. If satified by the new message, go back to the cluster screen and click "Delete" on the first ASG.
+7. Expand the "Count" plus sign to see the instance in the new ASG.
+8. Click the instance's link to find the DNS Name for the instance.
+9. Browse to the _http://<Instance DNS Name>:8888/hello_. You should see a new message.
+10. If satified by the new message, go back to the cluster screen and click "Delete" on the first ASG.
