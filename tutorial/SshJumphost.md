@@ -23,7 +23,7 @@ For Windows, use the instructions above to convert your .pem to a .ppk using PuT
 
     cd "My Documents"
 
-The key parts will be the key and the host name prefixed by "ubuntu@". ![](images/Putty-host.png) ![](images/Putty-forward.png)
+The key parts will be the key and the host name prefixed by "ubuntu@". ![](images/Putty-host.png =250x) ![](images/Putty-forward.png =250x)
 
 ## 2. Save Jumphost
 
@@ -59,7 +59,7 @@ For UNIX:
 
     ssh -i zerotocloud.pem -L 8080:localhost:8080 ubuntu@$JUMPHOST
 
-For Windows, use the instructions above, with the one additional change of port forwarding. ![](images/Putty-forward.png)
+For Windows, use the instructions above, with the one additional change of port forwarding. ![](images/Putty-forward.png =250x)
 
 ## 5. Update jumphost
 
