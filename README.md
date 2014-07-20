@@ -26,150 +26,11 @@ We are actively tuning the steps and will post the specific steps here for OSCON
 6. [Create an user](tutorial/CreateUser.md)
 7. [Create Security Group for ELBs](tutorial/SecurityGroups.md)
 8. [Create Foundation AMI](tutorial/FoundationAMI.md)
-
-9. Setup bastion (On Windows use WinSCP or pscp.exe from the Putty package.)
-
-    40. Start at a terminal on your laptop
-
-    41. `cd ~/Downloads`
-
-    42. `chmod 0600 zerotocloud.pem`
-
-    43. `export JUMPHOST=ec2-54-191-135-15.us-west-2.compute.amazonaws.com (from Step 4g)`
-
-    44. `scp -i zerotocloud.pem credentials.csv ubuntu@$JUMPHOST:credentials.csv`
-
-        3. When prompted about the RSA fingerprint, type "yes".
-
-    45. `scp -i zerotocloud.pem zerotocloud.pem ubuntu@$JUMPHOST:zerotocloud.pem`
-
-    46. `ssh -i zerotocloud.pem -L 8080:localhost:8080 ubuntu@$JUMPHOST`
-
-    47. `sudo apt-get update`
-
-    48. `sudo apt-get install python-pip python-dev git default-jdk`
-
-        4. When prompted to continue, hit Return.
-
-    49. `chmod 0600 zerotocloud.pem # might be superfluous`
-
-10. Setup credentials
-
-    50. `cd ~`
-
-    51. `git clone `[https://github.com/Netflix-Skunkworks/zerotocloud.git](https://github.com/Netflix-Skunkworks/zerotocloud.git)
-
-    52. `cd zerotocloud`
-
-    53. `eval $(baseami/root/usr/local/bin/metadatavars)`
-
-    54. `set | grep EC2 # to show what just happened`
-
-    55. `./gradlew writeConfig `(writes ~/.aws/config and ~/.boto from credentials.csv) `(49 seconds) (Explain Gradle, since this is the first time they’re running)`
-
-11. Build and bake BaseAMI
-
-    56. `sudo pip install git+`[https://github.com/Netflix/aminator.git@2.1.52-dev#egg=aminator](https://github.com/Netflix/aminator.git#egg=aminator)
-
-    57. `cd ~/zerotocloud`
-
-    58. `./gradlew :baseami:buildDeb (3 seconds) `
-
-    59. `sudo aminate -e ec2_aptitude_linux -b ubuntu-foundation -n ubuntu-base-ami baseami/build/distributions/baseami_1.0.0_all.deb`
-
-        5.  (Using named image so that they don’t have to keep track of the base ami id) *(Note that aminate will append a ‘-ebs’ suffix to the name (-n) provided on the command line.) (Good time to talk about immutable infrastructure)*
-
-12. Build and Bake Asgard Package
-
-    60. `cd ~/zerotocloud`
-
-    61. `./gradlew :asgard:buildDeb -Pasgard.password=XYZ` (defaults to th0r otherwise)`(real   1m1.879s)`
-
-    62. `sudo aminate -e ec2_aptitude_linux -b ubuntu-base-ami-ebs  asgard/build/distributions/asgard_1.0.0_all.deb`
-
-        6. If bake fails, the buildDeb task has to be re-run
-
-13. Standup asgard using asgard
-
-    63. `wget `[https://github.com/Netflix/asgard/releases/download/asgard-1.5/asgard-standalone.jar](https://github.com/Netflix/asgard/releases/download/asgard-1.5/asgard-standalone.jar)
-
-    64. `java -DonlyRegions=us-west-2 -Xmx2048m -jar asgard-standalone.jar`
-
-    65. Use browser to [http://localhost:8080](http://localhost:8080/us-west-2)/ (Should be going to us-west-2, once started)
-
-    66. Navigate to App -> Application
-
-        7. Click "Create New Application"
-
-        8. Enter "asgard" as Name
-
-        9. Type in a Description, Owner and Email
-
-        10. Click "Create New Security Group" button
-
-        11. If you see "vpc…" in the VPC field, make sure to click the checkbox.
-
-        12. Click "Create New Security Group"
-
-            1. Very likely to get "Could not create Security Group: java.lang.NullPointerException", Just click again and get a “Security Group 'asgard' already exists.” message.
-
-        13. After creation, click "Edit Security Group"
-
-        14. Check the "Open" checkbox next to elb-http-public
-
-        15. Click "Update Security Group"
-
-        16. Ensure this new permission is added to "Ingress Permissions" row.
-
-    67. Navigate to ELB | Elastic Load Balancer
-
-        17. Click "Create New Load Balancer"
-
-        18. Choose "asgard" as the Application
-
-        19. Type (or select) elb-http-public in "Security Group"
-
-        20. Change "Health Check"’s Healthy Threshold to “5”
-
-        21. Click "Create New Load Balancer"
-
-        22. It’ll be named "asgard--frontend"
-
-    68. Navigate Cluster, via Cluster | Auto Scaling Groups
-
-        23. Click "Create New Auto Scaling Group"
-
-        24. Select "asgard" as the Application
-
-        25. Set "Min", “Max” and “Desired Capacity” to 1
-
-        26. Type "asgard--frontend" in Load Balancer
-
-        27. In "AMI Image ID", start to type asgard. Select the baked version of Asgard
-
-        28. Ensure "SSH Key" is zerotocloud
-
-        29. Set "Security Group" to “asgard”
-
-        30. Set "IAM Instance Profile" to “jumphost” (Could be customized)
-
-        31. Click "Create New Auto Scaling Group"
-
-        32. Launch Config will implicitly be created, and an instance will start booting. "Launch Config 'asgard-20140718181745' has been created. Auto Scaling Group 'asgard' has been created."
-
-    69. Visit baked instance
-
-        33. Navigate to [http://localhost:8080/us-west-2/loadBalancer/show/asgard--frontend](http://localhost:8080/us-west-2/loadBalancer/show/asgard--frontend)
-
-        34. Ensure instance is InService under "ELB State". It will start in OutOfService with a description of “Instance registration is still in progress.”. Keep refreshing.
-
-        35. Visit "DNS Name" in your browser, e.g. asgard--frontend-1362846407.us-west-2.elb.amazonaws.com (Record this)
-
-        36. Troubleshooting
-
-            2. If you want to SSH to the instance, add ssh from Anywhere to the Asgard security group in the console. Then you can run ssh -i zerotocloud.pem ubuntu@<DNS Name>
-
-        37. When successful, Ctrl-C out of the java -jar line
+9. [Setup Jumphost](tutorial/SshJumphost.md)
+10. [Setup Credentials](tutorial/Credentials.md)
+11. [Build and bake BaseAMI](tutorial/BaseAMI.md)
+12. [Build and Bake Asgard](tutorial/AsgardBake.md)
+13. [Standup asgard using asgard](tutorial/AsgardStandalone.md)
 
 14. Build Edda Package
 
@@ -340,18 +201,6 @@ We are actively tuning the steps and will post the specific steps here for OSCON
     123. On the EC2 page, go to AMI and de-register all of the AMIs you created
 
     124. On the Snapshots section, delete all of the snapshots
-
-Steps avoided
-
-    125. aws ec2 create-security-group --group-name asgard-sg
-
-    126. aws ec2 authorize-security-group-ingress --group-id sg-123456 --protocol tcp --port 22 --cidr 0.0.0.0/0
-
-    127. aws elb create-load-balancer --load-balancer-name asgard-lb --listeners Protocol=string,LoadBalancerPort=80,InstanceProtocol=http,InstancePort=7001
-
-    128. aws autoscaling create-launch-configuration --launch-configuration-name asgard-lc --image-id ami-XXX --key-name zerotocloud --security-groups asgard-sg --instance-type m3.medium --iam-instance-profile jumphost
-
-    129. `aws autoscaling create-auto-scaling-group --auto-scaling-group-name asgard-v000 --launch-configuration-name asgard-lc --min-size 1 --max-size 1 --desired-capacity 1 --availability-zones us-west-2b --load-balancer-names asgard-lb --tags ResourceId=string,ResourceType=string,Key=string,Value=string,PropagateAtLaunch=boolean`
 
 Nice to haves:
 
