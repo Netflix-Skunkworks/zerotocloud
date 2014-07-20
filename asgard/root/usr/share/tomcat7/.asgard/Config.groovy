@@ -1,3 +1,5 @@
+import com.netflix.asgard.Region
+
 def accountNumber = '@ACCOUNT_NUMBER@'
 grails {
     awsAccounts = [accountNumber]
@@ -16,4 +18,4 @@ cloud {
         }
     }
 }
-import com.netflix.asgard.Region
+
