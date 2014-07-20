@@ -6,7 +6,7 @@ Ideally this leaves the baking of the actual application to just the application
 
 # Install aminator
 
-[Aminator](https://github.com/Netflix/aminator) is a Python-based open sourced tool from Netflix to "Bake" Amazon images.
+<a href="https://github.com/Netflix/aminator" target="_blank">Aminator</a> is a Python-based open sourced tool from Netflix to "Bake" Amazon images.
 It can use system packages, like RPMs or DEBs, or via a system of plugins common configuration management tools, like Chef, Puppet or Ansible, to build a machine image.
 It also supports various base environments, we'll be using Ubuntu but other RPM based OS's like CentOS are supported.
 

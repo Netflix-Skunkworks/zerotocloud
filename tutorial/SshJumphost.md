@@ -78,7 +78,7 @@ From the jumphost install the server-component:
     sudo apt-get update
     sudo apt-get install mosh
     
-From your local laptop follow the instructions to install the client component on [their website](http://mosh.mit.edu/#getting). 
+From your local laptop follow the instructions to install the client component on <a href="http://mosh.mit.edu/#getting" target="_blank">their website</a>. 
 Even though they have a version for Chrome, it doesn't support provide our own credential pem file. 
 On a Mac, it will warn about an "unidentified developer", to get around this Ctrl click on it, then select open.
 

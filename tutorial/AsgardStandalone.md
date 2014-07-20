@@ -2,7 +2,7 @@
 
 To responsibly stand up an instance, we want it in an ASG, with a security group and behind a load balancer. 
 In AWS, this also requires a Launch Configuration to define the ASG.
-We could stand this up with the [AWS CLI](http://aws.amazon.com/cli/) tool or the AWS Console, but it's quite tedious. 
+We could stand this up with the <a href="http://aws.amazon.com/cli/" target="_blank">AWS CLI</a> tool or the AWS Console, but it's quite tedious. 
 An example is provided at the end of this page.
 
 The general flow for any new application will be to register the Application, create an ELB (if needed), create the first ASG, wait for the first instance to come up, and finally visit it via the DNS Name. 
@@ -19,7 +19,7 @@ This will require us to run Asgard on the jumphost for a little while.
 
 ## Create Application
 
-In your local browser, navigate to [http://localhost:8080/](http://localhost:8080/us-west-2). 
+In your local browser, navigate to <a href="http://localhost:8080/" target="_blank">http://localhost:8080/us-west-2</a>. 
 You should be viewing us-west-2, if not use the pull down at the top of page to change your region.
 
 1. Navigate to _App | Application_
@@ -72,7 +72,7 @@ You should be viewing us-west-2, if not use the pull down at the top of page to 
 
     69. Visit baked instance
 
-        33. Navigate to [http://localhost:8080/us-west-2/loadBalancer/show/asgard--frontend](http://localhost:8080/us-west-2/loadBalancer/show/asgard--frontend)
+        33. Navigate to <a href="http://localhost:8080/us-west-2/loadBalancer/show/asgard--frontend" target="_blank">http://localhost:8080/us-west-2/loadBalancer/show/asgard--frontend</a>
 
         34. Ensure instance is InService under "ELB State". It will start in OutOfService with a description of “Instance registration is still in progress.”. Keep refreshing.
 

@@ -9,13 +9,13 @@ Additionally, there are recipes that we're going to be using, they're all in the
 We're going to clone it onto the jumphost.
 
     cd ~
-    git clone `[https://github.com/Netflix-Skunkworks/zerotocloud.git](https://github.com/Netflix-Skunkworks/zerotocloud.git)
+    git clone https://github.com/Netflix-Skunkworks/zerotocloud.git
     cd zerotocloud
     eval $(baseami/root/usr/local/bin/metadatavars)
     set | grep EC2 # Show what just happened
     ./gradlew writeConfig
     
-The fourth line above calls the ["metadata" service](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AESDG-chapter-instancedata.html), which is a REST endpoint only available from your instance.
+The fourth line above calls the <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AESDG-chapter-instancedata.html" target="_blank">"metadata" service</a>, which is a REST endpoint only available from your instance.
 We use it to extra certain variables specifc to this instance and your account. Feel free to look at the script.
 
-The last line uses [Gradle](http://gradle.org) to run our script. Future scripts will also be using  
+The last line uses <a href="http://gradle.org" target="_blank">Gradle</a> to run our script. Future scripts will also be using  

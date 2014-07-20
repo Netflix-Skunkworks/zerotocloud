@@ -6,7 +6,7 @@ A general practice at Netflix is to have a security group for each application. 
 In this tutorial, we're going to be creating our per-application security groups in Asgard. In this step we're creating a security group just for our ELBs, so that they can be access outside of AWS.
 7. Create Security Group for ELBs.
 
-1. View [Security Groups](https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#SecurityGroups:) page.  Which can also be accessed from the Services | EC2 | Security Groups.
+1. View <a href="https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#SecurityGroups:" target="_blank">Security Groups</a> page.  Which can also be accessed from the _Services | EC2 | Security Groups_.
 2. Click "Create Security Group"
 3. Set "Security group name" to “elb-http-public”
 4. Set "Description" to “Public HTTP for ELBs”

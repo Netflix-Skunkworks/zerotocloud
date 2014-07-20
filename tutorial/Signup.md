@@ -1,6 +1,6 @@
 # Step 1 - Sign up for AWS
 
-Navigate to [https://portal.aws.amazon.com/gp/aws/developer/registration/](https://portal.aws.amazon.com/gp/aws/developer/registration/).
+Navigate to <a href="https://portal.aws.amazon.com/gp/aws/developer/registration/" target="_blank">https://portal.aws.amazon.com/gp/aws/developer/registration/</a>.
 
 * If you see the Billing page, you already have an AWS Account and you're signed in. Nothing else is required.
 * If you see the Sign up for AWS page, you have an Amazon account but not a AWS account, skip to number 3.
