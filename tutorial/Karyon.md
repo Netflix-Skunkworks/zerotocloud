@@ -60,8 +60,8 @@ For that we'll have to to the AWS Console. Karyon will open two ports, one for i
 15. Click "Add Rule" button again. Select "Custom TCP Rule". Set the port to 8077. Set source to Anywhere.
 16. Click "Save" to close the dialog. It is very likely that the UI won't update.
 17. Browse to the _http://<Instance DNS Name>:8888/hello_. Since this is a template application, there is no rich API to query.
-18. Browse to the _http://<Instance DNS Name>:8088/admin_. This page is very visual, explore it.
-19. Confirm instance is in Eureka, by browse to the Eureka ELB address.
+18. Browse to the _http://<Instance DNS Name>:8088/admin_. This page is visual, explore it. You'll find the ability to change JMX settings, view Archaius properties, Eureka caches.
+19. Confirm instance is in Eureka, by browsing to the Eureka ELB address.
 
 ## Red/Black Deploy of Karyon
 

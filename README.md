@@ -14,7 +14,7 @@ We are actively tuning the steps and will post the specific steps here for OSCON
 * In the case of existing infrastructure, like keys, please follow the instructions closely and do not re-use existing provisioned items. I wouldn’t want to be responsible for opening up a security hole in existing infrastructure.
 * There are plenty of opportunities to lock down these applications at the network layer or the application layer. Or restrict what the instances can do. References will be made to additional security precautions, but they have not all been integrated into this tutorial.
 * This is not a developing for the cloud tutorial, that makes for a great followup. Given enough time, we can talk about it.
-* There will costs.
+* This will cost money. Not much, but some.
 
 # Tutorial
 
@@ -38,7 +38,7 @@ When all done, ilrelevant of how far you get make sure to read the Clean up inst
 
 # Extras
 
-Settings up infrastructure can be frought with problems, so if you've made this far in the allocated time, congratulate yourself.
+Setting up infrastructure can be frought with problems, so if you've made this far in the allocated time, congratulate yourself.
 Here are some additional exercises which can help expand your knowledge of the Netflix stack or the AWS in general.
 
 * [Simian Army](tutorial/SimianArmy.md)
