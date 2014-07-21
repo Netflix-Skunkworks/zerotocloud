@@ -7,9 +7,9 @@ An example is provided at the end of this page.
 
 The general flow for any new application will be to register the Application, create an ELB (if needed), create the first ASG, wait for the first instance to come up, and finally visit it via the DNS Name. 
 We're going to run through those steps here for Asgard, but other steps in the tutorial will have you coming back here. 
-When they do, follow the "Create Application", "Create an ELB", "Create Auto Scaling Group", and "View instance" parts below, replacing the name "asgard" if the application you're working on. 
+When they do, follow the "Create Application", "Create an ELB", "Create Auto Scaling Group", and "View instance" parts below, replacing the name "asgard" with the application you're working on. 
 Taking note if they require any modifications, they will sometimes use slightly different ports or health check URLs.
-Also when re-using this step in the future, the URL for asgard will be the one you're hosting in an ASG and not localhost.
+Also when re-using this step in the future, the URL for Asgard will be the one you're hosting in an ASG and not localhost.
 
 ## Run Asgard
 
@@ -24,11 +24,11 @@ This will require us to run Asgard on the jumphost for a little while.
 In your local browser, navigate to <a href="http://localhost:8080/" target="_blank">http://localhost:8080/us-west-2</a>. 
 You should be viewing us-west-2, if not use the pull down at the top of page to change your region.
 
-1. Navigate to _App | Application_
+1. Navigate to _App | Applications_
 2. Click "Create New Application"
 3. Enter "asgard" as Name
-4. Fill in a the _Description_, _Owner_ and _Email_ fields.
-5. Click "Create New Security Group" button.
+4. Fill in the _Description_, _Owner_ and _Email_ fields.
+5. Click "Create New Application" button.
 6. If you see "vpc…" in the VPC field, make sure to click the checkbox.
 7. Click "Create New Security Group". It is very likely to get an error message saying _"Could not create Security Group: java.lang.NullPointerException"_. Just click again the button again and you should get another message that says “Security Group 'asgard' already exists.”, which confirms that it was created.
 8. After creation, click "Edit Security Group"
