@@ -24,6 +24,7 @@ Make sure to use that DNS name below instead of just copying like you have in pr
 5. Return to the Asgard Cluster page, there is a link at the top and bottom of the page.
 6. Click the "Disable" button in the first ASG.
 7. Reload the Asgard UI.
-8. When visiting a Cluster page, you will now see a Eureka column and a "Wait for Eureka health check pass" checkbox for new clusters.
+8. When visiting a Cluster page, you will now see a Eureka column and a "Wait for Eureka health check pass" checkbox for new clusters. ![](images/cluster-eureka-features.png) ![](images/instance-eureka-features.png) 
 
 FYI, this can not be done as a Rolling Push, since Asgard will disable creation of new instances while killing itself.
+

@@ -2,11 +2,12 @@
 
 Ice provides a birds-eye view of our large and complex cloud landscape from a usage and cost perspective. 
 
-Instructions for settings up ICE are TBD. 
-
 ![](images/ice.png)
 
+## Billing Reports
+
 The difficulty in settings up ICE during a tutorial is that the billing reports that ICE needs to process won't be available for a couple of hours.
+To start generating the Billing Reports, follow these instructions.
  
 1. Open up two tabs in the AWS console
 2. tab1: Enable Billing Reports on [https://console.aws.amazon.com/billing/home?#/preferences](https://console.aws.amazon.com/billing/home?#/preferences)
@@ -16,3 +17,7 @@ The difficulty in settings up ICE during a tutorial is that the billing reports 
 6. tab2: add bucket policy under bucket permissions
 7. tab2: paste json from clipboard and save
 8. tab1: verify
+
+## TBD
+
+We have not developered a recipe to build a DEB for ICE yet.
