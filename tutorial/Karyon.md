@@ -59,9 +59,9 @@ For that we'll have to to the AWS Console. Karyon will open two ports, one for i
 14. In the dialog that comes up, click "Add Rule". Select "Custom TCP Rule". Set the port to 8888. Set source to Anywhere.
 15. Click "Add Rule" button again. Select "Custom TCP Rule". Set the port to 8077. Set source to Anywhere.
 16. Click "Save" to close the dialog. It is very likely that the UI won't update.
-17. Browse to the _http://*Instance DNS Name*:8888/hello_ URL. Since this is a template application, there is no rich API to query.
-18. Browse to the _http://*Instance DNS Name*:8088/admin_ URL. This page is visual, explore it. You'll find the ability to change JMX settings, view Archaius properties, Eureka caches.
-19. Confirm instance is in Eureka, by browsing to the Eureka ELB address. ![](images/Eureka-WithKaryon.png)
+17. Browse to the _http://*Instance DNS Name*:8888/hello_ URL. Since this is a template application, there is no rich API to query. ![](images/KaryonREST.png)
+18. Browse to the _http://*Instance DNS Name*:8077/admin_ URL. This page is visual, explore it. You'll find the ability to change JMX settings, view Archaius properties, Eureka caches. ![](images/AdminUI.png)
+19. Confirm instance is in Eureka, by browsing to the Eureka ELB address. We dpeloyed it as karyon in Asgard and with HELLO-NETFLIX-OOS in Eureka. This discrepancy will cause Asgard to not be able to show Eureka status. ![](images/Eureka-WithKaryon.png)
 
 ## Red/Black Deploy of Karyon
 

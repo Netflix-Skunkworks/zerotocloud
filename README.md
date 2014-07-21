@@ -44,8 +44,8 @@ Here are some additional exercises which can help expand your knowledge of the N
 * [Karyon](tutorial/Karyon.md)
 * [Simian Army](tutorial/SimianArmy.md)
 * [Enable Eureka Integration in Asgard](tutorial/EurekaAsgard.md)
-* [AWS CLI](tutorial/AwsCli.md)
-* (TBD) Turbine (needs an app with Hystrix running)
+* (TBD) [AWS CLI](tutorial/AwsCli.md)
+* (TBD) [Turbine](tutorial/Turbine.md)
 * (TBD) [ICE](tutorial/ICE.md)
 
 # Clean up
