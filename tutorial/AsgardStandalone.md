@@ -28,13 +28,14 @@ You should be viewing us-west-2, if not use the pull down at the top of page to 
 2. Click "Create New Application"
 3. Enter "asgard" as Name
 4. Fill in the _Description_, _Owner_ and _Email_ fields.
-5. Click "Create New Application" button.
-6. If you see "vpc…" in the VPC field, make sure to click the checkbox.
-7. Click "Create New Security Group". It is very likely to get an error message saying _"Could not create Security Group: java.lang.NullPointerException"_. Just click again the button again and you should get another message that says “Security Group 'asgard' already exists.”, which confirms that it was created.
-8. After creation, click "Edit Security Group"
-9. Check the "Open" checkbox next to elb-http-public
-10. Click "Update Security Group"
-11. Ensure this new permission is added to "Ingress Permissions" row.
+5. Click "Create New Application" button. ![](images/Asgard_NewApplication.png)
+6. From the Application screen, click the "Create Security Group" button in the top row of buttons.
+7. If you see "vpc…" in the VPC field, make sure to click the checkbox. The other fields should already be filled in.
+8. Click "Create New Security Group". It is very likely to get an error message saying _"Could not create Security Group: java.lang.NullPointerException"_. Just click again the button again and you should get another message that says “Security Group 'asgard' already exists.”, which confirms that it was created.
+9. After creation you'll be back to the Application screen, click "Edit Security Group" button in the top row of buttons.
+10. Check the "Open" checkbox next to elb-http-public
+11. Click "Update Security Group"
+12. Ensure this new permission is addedto "Ingress Permissions" row.
 
 ## Create an ELB
 
