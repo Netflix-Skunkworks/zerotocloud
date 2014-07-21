@@ -25,7 +25,7 @@ The difference will be be that we're going to use a different "Health Check" URL
 3. Follow "Create an ELB", using the name "simianarmy" instead of "asgard". And instead of HTTP:7001/healthcheck for the Health Check URL, use "HTTP:7001/api/v1/chaos". The protocol and port are the same, but the path is different.
 4. Follow "Create Auto Scaling Group" using the name "simianarmy" instead of "asgard".
 5. Follow "View instance" to get the DNS Name for simianarmy's ELB, i.e. _simianarmy--frontend_. 
-6. Using that DNS Name, visit _http://<ELB DNS name>/api/v1/chaos
+6. Using that DNS Name, visit _http://*ELB DNS name*/api/v1/chaos
 
 ## Running
 

@@ -21,6 +21,6 @@ Instead we're going to pick a safe endpoint that will return a HTTP response of 
 3. Follow "Create an ELB", using the name "edda" instead of "asgard". And instead of HTTP:7001/healthcheck for the Health Check URL, use "HTTP:7001/api/v2/view/instances;_limit=1". The protocol and port are the same, but the path is different.
 4. Follow "Create Auto Scaling Group" using the name "edda" instead of "asgard".
 5. Follow "View instance" to get the DNS Name for edda's ELB, i.e. _edda--frontend_. 
-6. Using that DNS Name, visit _http://<ELB DNS name>/api/v2/view/instances;_pp_
+6. Using that DNS Name, visit _http://*ELB DNS name*/api/v2/view/instances;_pp_
 
 Review <a href="https://github.com/Netflix/edda/wiki/REST" target="_blank">Edda's REST API</a> for further documentation.
