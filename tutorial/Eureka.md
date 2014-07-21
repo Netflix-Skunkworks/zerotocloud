@@ -1,4 +1,4 @@
-# Step 14 - Build and Bake <a href="" target="_blank">Eureka</a>
+# Step 15 - Build and Bake <a href="" target="_blank">Eureka</a>
 
 Eureka is a mid-tier service discovery server, optmized for the cloud. 
 Using Eureka we can register our services and, almost as importantly as the service, be able to call registered services directly without incurring the cost of going through a Load Balancer. 
