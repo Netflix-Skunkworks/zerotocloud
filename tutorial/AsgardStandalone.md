@@ -21,7 +21,7 @@ This will require us to run Asgard on the jumphost for a little while.
 
 ## Create Application
 
-In your local browser, navigate to <a href="http://localhost:8080/" target="_blank">http://localhost:8080/us-west-2</a>. 
+In your local browser, navigate to <a href="http://localhost:8080/" target="_blank">http://localhost:8080/</a>. 
 You should be viewing us-west-2, if not use the pull down at the top of page to change your region.
 
 1. Navigate to _App | Applications_
