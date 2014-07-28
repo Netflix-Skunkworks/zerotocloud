@@ -5,17 +5,17 @@ more difficult to setup that just consuming a client library like a JAR in Centr
 can run independently, but they work better together. This tutorial is focused on bringing up the @NetflixOSS stack
  on a fresh AWS account, in a similar style to how Netflix does it internally. 
 
-We are actively tuning the steps and will post the specific steps here for OSCON 2014.
+Feedback is always appreciated, please file an issue or a pull request to participate.
 
 *This page can be reached as [nflx.it/zerotocloud](http://nflx.it/zerotocloud)*
 
 # Assumptions
 
-* Working in US West (Oregon) aka us-west-2. You’re flexible to do another region, but "Keep it Local" (We’re in Portland after all)
+* Working in US West (Oregon) aka us-west-2.
 * We’re performing non destructive operations, so if you have an existing AWS account setup, that will be fine and they won’t conflict. But it might be easier to find instances, etc if using a new region.
 * In the case of existing infrastructure, like keys, please follow the instructions closely and do not re-use existing provisioned items. I wouldn’t want to be responsible for opening up a security hole in existing infrastructure.
 * There are plenty of opportunities to lock down these applications at the network layer or the application layer. Or restrict what the instances can do. References will be made to additional security precautions, but they have not all been integrated into this tutorial.
-* This is not a developing for the cloud tutorial, that makes for a great followup. Given enough time, we can talk about it.
+* This is not a "developing for the cloud" tutorial, that would make for a great followup.
 * This will cost money. Not much, but some.
 
 # Tutorial
@@ -40,7 +40,7 @@ When all done, ilrelevant of how far you get make sure to read the Clean up inst
 
 # Extras
 
-Setting up infrastructure can be frought with problems, so if you've made this far in the allocated time, congratulate yourself.
+Setting up infrastructure can be frought with problems, so if you've made this far, congratulate yourself.
 Here are some additional exercises which can help expand your knowledge of the Netflix stack or the AWS in general.
 
 * [Karyon](tutorial/Karyon.md)
