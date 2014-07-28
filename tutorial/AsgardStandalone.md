@@ -7,7 +7,7 @@ An example is provided at the end of this page.
 
 The general flow for any new application will be to register the Application, create an ELB (if needed), create the first ASG, wait for the first instance to come up, and finally visit it via the DNS Name. 
 We're going to run through those steps here for Asgard, but other steps in the tutorial will have you coming back here. 
-When they do, follow the "Create Application", "Create an ELB", "Create Auto Scaling Group", and "View instance" parts below, replacing the name "asgard" with the application you're working on. 
+When they do, follow all the "Create Application", "Create an ELB", "Create Auto Scaling Group", and "View instance" parts below, replacing the name "asgard" with the application you're working on. 
 Taking note if they require any modifications, they will sometimes use slightly different ports or health check URLs.
 Also when re-using this step in the future, the URL for Asgard will be the one you're hosting in an ASG and not localhost.
 
@@ -58,8 +58,9 @@ You should be viewing us-west-2, if not use the pull down at the top of page to 
 7. Ensure "SSH Key" is "zerotocloud"
 8. Set "Security Group" to “asgard”
 9. Set "IAM Instance Profile" to “jumphost”. When following these instructions for other Applications, they might not use an "IAM Instance Profile" since they don't require a Role.
-10. Click "Create New Auto Scaling Group"
-11. A Launch Configuration will implicitly be created, and an instance will start booting. Expect a message like "Launch Config 'asgard-20140718181745' has been created. Auto Scaling Group 'asgard' has been created."
+10. *Quadruple check that you have selected the application sepecific security group, the application specific AMI, and the application specific ELB (if an ELB is being used). Missing one of these three fields was found to be the primary problem found by users of this tutorial.* For example, do not select the "Base AMI" AMI, do not select the elb-http-public security group, do not leave the ELB field empty if using an ELB.
+11. Click "Create New Auto Scaling Group"
+12. A Launch Configuration will implicitly be created, and an instance will start booting. Expect a message like "Launch Config 'asgard-20140718181745' has been created. Auto Scaling Group 'asgard' has been created."
 
 Technically an ASG can be heterogenous with regards to the AMI being used. 
 Meaning, that a different Launch Configuration can be used in the future, causing some instances to be created with different AMIs. 
