@@ -7,6 +7,8 @@ can run independently, but they work better together. This tutorial is focused o
 
 We are actively tuning the steps and will post the specific steps here for OSCON 2014.
 
+*This page can be reached as [nflx.it/zerotocloud](http://nflx.it/zerotocloud)*
+
 # Assumptions
 
 * Working in US West (Oregon) aka us-west-2. You’re flexible to do another region, but "Keep it Local" (We’re in Portland after all)
