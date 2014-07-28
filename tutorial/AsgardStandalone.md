@@ -58,7 +58,7 @@ You should be viewing us-west-2, if not use the pull down at the top of page to 
 7. Ensure "SSH Key" is "zerotocloud"
 8. Set "Security Group" to “asgard”
 9. Set "IAM Instance Profile" to “jumphost”. When following these instructions for other Applications, they might not use an "IAM Instance Profile" since they don't require a Role.
-10. *Quadruple check that you have selected the application sepecific security group, the application specific AMI, and the application specific ELB (if an ELB is being used). Missing one of these three fields was found to be the primary problem found by users of this tutorial.* For example, do not select the "Base AMI" AMI, do not select the elb-http-public security group, do not leave the ELB field empty if using an ELB.
+10. **Quadruple check that you have selected the application sepecific security group, the application specific AMI, and the application specific ELB (if an ELB is being used). Missing one of these three fields was found to be the primary problem found by users of this tutorial.** For example, do not select the "Base AMI" AMI, do not select the elb-http-public security group, do not leave the ELB field empty if using an ELB.
 11. Click "Create New Auto Scaling Group"
 12. A Launch Configuration will implicitly be created, and an instance will start booting. Expect a message like "Launch Config 'asgard-20140718181745' has been created. Auto Scaling Group 'asgard' has been created."
 
