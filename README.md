@@ -10,7 +10,7 @@ We are actively tuning the steps and will post the specific steps here for OSCON
 # Assumptions
 
 * Working in US West (Oregon) aka us-west-2. You’re flexible to do another region, but "Keep it Local" (We’re in Portland after all)
-* We’re performing non destructive operations, so if you have an existing AWS account setup, that will be fine and they won’t conflict. But it might be easier to find instances, etc if using a new region.
+* We’re performing non destructive operations, so if you have an existing AWS account setup, that will be fine and they won’t conflict. But it might be easier to find instances, etc if using a new VPC.  Creating a new VPC isn't required, but we will call out the points to pay attention to if you do.
 * In the case of existing infrastructure, like keys, please follow the instructions closely and do not re-use existing provisioned items. I wouldn’t want to be responsible for opening up a security hole in existing infrastructure.
 * There are plenty of opportunities to lock down these applications at the network layer or the application layer. Or restrict what the instances can do. References will be made to additional security precautions, but they have not all been integrated into this tutorial.
 * This is not a developing for the cloud tutorial, that makes for a great followup. Given enough time, we can talk about it.
@@ -20,19 +20,20 @@ We are actively tuning the steps and will post the specific steps here for OSCON
 
 1. [Sign up for AWS](tutorial/Signup.md)
 2. [Log into AWS Console](tutorial/Login.md)
-3. [Create Key Pair](tutorial/Keypair.md)
-4. [Create Jumphost](tutorial/Jumphost.md)
-5. [Create a role](tutorial/CreateRole.md)
-6. [Create a user](tutorial/CreateUser.md)
-7. [Create Security Group for ELBs](tutorial/SecurityGroups.md)
-8. [Create Foundation AMI](tutorial/FoundationAMI.md)
-9. [Setup Jumphost](tutorial/SshJumphost.md)
-10. [Setup Credentials](tutorial/Credentials.md)
-11. [Build and Bake BaseAMI](tutorial/BaseAMI.md)
-12. [Build and Bake Asgard](tutorial/AsgardBake.md)
-13. [Standup Asgard using Asgard](tutorial/AsgardStandalone.md)
-14. [Build and Bake Edda](tutorial/Edda.md)
-15. [Build and Bake Eureka](tutorial/Eureka.md)
+3. [Create a VPC (Optional)](tutorial/VPCBuild.md)
+4. [Create Key Pair](tutorial/Keypair.md)
+5. [Create Jumphost](tutorial/Jumphost.md)
+6. [Create a role](tutorial/CreateRole.md)
+7. [Create a user](tutorial/CreateUser.md)
+8. [Create Security Group for ELBs](tutorial/SecurityGroups.md)
+9. [Create Foundation AMI](tutorial/FoundationAMI.md)
+10. [Setup Jumphost](tutorial/SshJumphost.md)
+11. [Setup Credentials](tutorial/Credentials.md)
+12. [Build and Bake BaseAMI](tutorial/BaseAMI.md)
+13. [Build and Bake Asgard](tutorial/AsgardBake.md)
+14. [Standup Asgard using Asgard](tutorial/AsgardStandalone.md)
+15. [Build and Bake Edda](tutorial/Edda.md)
+16. [Build and Bake Eureka](tutorial/Eureka.md)
 
 When all done, ilrelevant of how far you get make sure to read the Clean up instructions below, so that you don't get charged for resources that you're not using.
 
@@ -60,8 +61,9 @@ If you accidentally leave our instances running your volumes allocated, the cost
 4. In Asgard, Delete all Applications (these are stored in SimpleDB and miniscule in size)
 5. In the EC2 Console, go to the AMI page and de-register all of the AMIs you created
 6. In the EC2 Console, go to the snapshots section, delete all of the snapshots
+7. In the VPC Console, delete the VPC
 
-FYI, The last two items would normally be cleaned up by Janitor monkey.
+FYI, items 5 and 6 would normally be cleaned up by Janitor monkey.
 
 # TODO
 
