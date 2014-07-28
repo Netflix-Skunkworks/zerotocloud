@@ -7,7 +7,7 @@ can run independently, but they work better together. This tutorial is focused o
 
 Feedback is always appreciated, please file an issue or a pull request to participate.
 
-*This page can be reached as [nflx.it/zerotocloud](http://nflx.it/zerotocloud)*
+**This page can be reached as [nflx.it/zerotocloud](http://nflx.it/zerotocloud)**
 
 # Assumptions
 
