@@ -8,8 +8,8 @@ In this tutorial, we're going to be creating our per-application security groups
 1. View <a href="https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#SecurityGroups:" target="_blank">Security Groups</a> page.  Which can also be accessed from the _Services | EC2 | Security Groups_.
 2. Click "Create Security Group". ![](images/security-groups.png)
 3. Set "Security group name" to “elb-http-public”.
-4. Set "Description" to “Public HTTP for ELBs”. ![](images/create-security-group.png)
-5. Leave VPC alone
+4. Set "Description" to “Public HTTP for ELBs”.
+5. Select the zerotocloud VPC in the "VPC" dropdown. ![](images/create-security-group.png)
 6. Click "Add Rule". Select "HTTP" under the Type column. Ensure "Source" shows Anywhere. ![](images/create-security-group-rule.png)
 7. Click "Create". ![](images/create-security-group-final.png)
 
