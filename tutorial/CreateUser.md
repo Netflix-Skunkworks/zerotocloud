@@ -1,6 +1,6 @@
 # Step 6 - Create a User
 
-A user is a equivalent to a username and password that can be used in API calls to AWS. 
+A user is equivalent to a username and password that can be used in API calls to AWS. 
 A User is similiar to how the pem files work, but instead of SSH, this is for AWS API calls.
 In contrast to a Role, we can use a user anywhere, e.g. our local laptop.
 
