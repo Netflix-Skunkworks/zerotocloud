@@ -36,7 +36,7 @@ Feedback is always appreciated, please file an issue or a pull request to partic
 14. [Build and Bake Edda](tutorial/Edda.md)
 15. [Build and Bake Eureka](tutorial/Eureka.md)
 
-When all done, ilrelevant of how far you get make sure to read the Clean up instructions below, so that you don't get charged for resources that you're not using.
+When all done, irrelevant of how far you get make sure to read the Clean up instructions below, so that you don't get charged for resources that you're not using.
 
 # Extras
 
