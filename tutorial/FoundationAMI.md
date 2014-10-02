@@ -1,7 +1,7 @@
 # Step 8 - Foundation AMI
 
 We're going to be constructing our instance's AMIs by "layering" them and this is done baking one on top of the other.
-The most bottom layer for us is the operating system directly from the vendor.  In this case Ubuntu Trusty from Canonical.
+The bottom layer for us is the operating system directly from the vendor.  In this case Ubuntu Trusty from Canonical.
 The baking process uses snapshots. As Canonical doesn't provide public snapshots of Ubuntu, we're going to create our own out of the jumphost we created in [Step 4](Jumphost.md).
 In this case, we are going to create an image from a running instance. 
 An alternative, and how we do it at Netflix, is to take the public AMI from Canonical and _dd_ to volume which can snapshot. 
