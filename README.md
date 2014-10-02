@@ -36,12 +36,12 @@ Feedback is always appreciated, please file an issue or a pull request to partic
 14. [Build and Bake Edda](tutorial/Edda.md)
 15. [Build and Bake Eureka](tutorial/Eureka.md)
 
-When all done, irrelevant of how far you get make sure to read the Clean up instructions below, so that you don't get charged for resources that you're not using.
+When all done, irrelevant of how far you get, make sure to read the Clean up instructions below so that you don't get charged for resources that you're not using.
 
 # Extras
 
-Setting up infrastructure can be frought with problems, so if you've made this far, congratulate yourself.
-Here are some additional exercises which can help expand your knowledge of the Netflix stack or the AWS in general.
+Setting up infrastructure can be frought with problems, so if you've made this far, congratulate yourself!
+Here are some additional exercises, which can help expand your knowledge of the Netflix stack or of AWS in general.
 
 * [Karyon](tutorial/Karyon.md)
 * [Simian Army](tutorial/SimianArmy.md)
