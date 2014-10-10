@@ -23,7 +23,7 @@ Make sure to use that DNS name below instead of just copying like you have in pr
 
     EUREKA_ELB=*ELB DNS NAME from Step 15*
     cd ~/zerotocloud
-    KARYON_OPTS="-Dkaryon.serviceUrl.default=http://$EUREKA_ELB/v2/" ./gradlew :karyon:buildDeb
+    KARYON_OPTS="-Deureka.serviceUrl.default=http://$EUREKA_ELB/v2/" ./gradlew :karyon:buildDeb
     sudo aminate -e ec2_aptitude_linux -b ubuntu-base-ami-ebs karyon/build/distributions/karyon_1.0.0_all.deb
 
 ## Deploy
