@@ -1,53 +1,54 @@
 
 import zerotocloud.*
 task cloneRepo(type: CloneRepo) {
-    repository = 'https://github.com/Netflix/karyon.git'
+  repository = 'https://github.com/Netflix/karyon.git'
+
 }
 
 task patchRepo {
-    dependsOn 'cloneRepo'
+  dependsOn 'cloneRepo'
     doFirst {
-        def app = new File(cloneRepo.gitDir, 'karyon-examples/src/main/java/com/netflix/karyon/examples/hellonoss/server/jersey/JerseyHelloWorldApp.java')
+      def app = new File(cloneRepo.gitDir, 'karyon-examples/src/main/java/com/netflix/karyon/examples/hellonoss/server/jersey/JerseyHelloWorldApp.java')
         def contents = app.text
         app.withWriter { out ->
-            out << contents
-                    .replace('import com.netflix.karyon.servo.KaryonServoModule;', 'import com.netflix.karyon.servo.KaryonServoModule;\nimport com.netflix.karyon.eureka.KaryonEurekaModule;')
-                    .replace('// KaryonEurekaModule.class,', 'KaryonEurekaModule.class, ')
-                    // It's impossible to test REST calls from a browser if a HTTP Header is required.
-                    .replace('interceptorSupport().forUri("/hello").interceptIn(AuthInterceptor.class);', '//interceptorSupport().forUri("/hello").interceptIn(AuthInterceptor.class);')
+          out << contents
+            .replace('import com.netflix.karyon.servo.KaryonServoModule;', 'import com.netflix.karyon.servo.KaryonServoModule;\nimport com.netflix.karyon.eureka.KaryonEurekaModule;')
+            .replace('// KaryonEurekaModule.class,', 'KaryonEurekaModule.class, ')
+            // It's impossible to test REST calls from a browser if a HTTP Header is required.
+            .replace('interceptorSupport().forUri("/hello").interceptIn(AuthInterceptor.class);', '//interceptorSupport().forUri("/hello").interceptIn(AuthInterceptor.class);')
         }
 
-        def scanning = new File(cloneRepo.gitDir, 'karyon-examples/src/main/resources/hello-netflix-oss.properties')
+      def scanning = new File(cloneRepo.gitDir, 'karyon-examples/src/main/resources/hello-netflix-oss.properties')
         def scanContents = scanning.text
         scanning.withWriter { out ->
-            // Let jersey scan Eureka package for healthcheck
-            out << scanContents.replace('com.netflix.karyon.examples.hellonoss', 'com.netflix.karyon.examples.hellonoss,com.netflix.appinfo')
+          // Let jersey scan Eureka package for healthcheck
+          out << scanContents.replace('com.netflix.karyon.examples.hellonoss', 'com.netflix.karyon.examples.hellonoss,com.netflix.appinfo')
         }
 
-	def mc = new File(cloneRepo.gitDir, 'karyon-examples/build.gradle')
-	def mcContents = mc.text
-	mc.withWriter { out -> 
-	     // need to rewire
-		out << mcContents.replace("apply plugin: 'application'", "apply plugin: 'application'\nmainClassName = 'com.netflix.karyon.KaryonRunner'")
-	}
+      def mc = new File(cloneRepo.gitDir, 'karyon-examples/build.gradle')
+        def mcContents = mc.text
+        mc.withWriter { out -> 
+          // need to rewire
+          out << mcContents.replace("apply plugin: 'application'", "apply plugin: 'application'\nmainClassName = 'com.netflix.karyon.KaryonRunner'")
+        }
     }
 }
 
 task patchEndpoint {
-    dependsOn 'cloneRepo'
+  dependsOn 'cloneRepo'
     doFirst {
-        def app = new File(cloneRepo.gitDir, 'karyon-examples/src/main/java/com/netflix/karyon/examples/hellonoss/server/jersey/HelloworldResource.java')
+      def app = new File(cloneRepo.gitDir, 'karyon-examples/src/main/java/com/netflix/karyon/examples/hellonoss/server/jersey/HelloworldResource.java')
         def contents = app.text
         app.withWriter { out ->
-            out << contents
-                    .replace('Netflix OSS', 'Zero to Cloud Developers!')
+          out << contents
+            .replace('Netflix OSS', 'Zero to Cloud Developers!')
         }
 
     }
 }
 
 task buildRepo(type: Build) {
-    dependsOn 'cloneRepo', 'patchRepo', 'patchEndpoint'
+  dependsOn 'cloneRepo', 'patchRepo', 'patchEndpoint'
     mustRunAfter 'patchEndpoint'
     moduleDir = cloneRepo.gitDir
     arguments = [':karyon-examples:distZip', '-x', 'check', '-x', 'signArchives', '-x', 'sourcesJar', '-x', 'javadocJar', '--stacktrace']
@@ -55,14 +56,14 @@ task buildRepo(type: Build) {
 
 import org.apache.tools.ant.filters.*
 ospackage {
-    def dist = new File(buildRepo.moduleDir, 'karyon-examples/build/distributions/karyon-examples-2.1.00-RC6.zip')
+  def dist = new File(buildRepo.moduleDir, 'karyon-examples/build/distributions/karyon-examples-2.1.00-RC6.zip')
     from( zipTree(dist) ) {
-        into('/opt')
+      into('/opt')
     }
-    from(file('root')) {
-        into('/')
-        filter ReplaceTokens, tokens: [ 'KARYON_OPTS': System.getenv('KARYON_OPTS') ?: '' ]
-    }
-    postInstall('echo manual > /etc/init/tomcat7.override')
+  from(file('root')) {
+    into('/')
+      filter ReplaceTokens, tokens: [ 'KARYON_OPTS': System.getenv('KARYON_OPTS') ?: '' ]
+  }
+  postInstall('echo manual > /etc/init/tomcat7.override')
 }
 buildDeb.dependsOn(buildRepo)
