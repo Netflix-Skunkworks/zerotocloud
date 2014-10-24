@@ -47,7 +47,7 @@ task patchEndpoint {
 }
 
 task buildRepo(type: Build) {
-    dependsOn 'cloneRepo', 'patchRepo', 'patchEndpoint'
+    dependsOn 'cloneRepo', 'patchRepo'
     mustRunAfter 'patchEndpoint'
     moduleDir = cloneRepo.gitDir
     arguments = [':karyon-examples:distZip', '-x', 'check', '-x', 'signArchives', '-x', 'sourcesJar', '-x', 'javadocJar', '--stacktrace']
