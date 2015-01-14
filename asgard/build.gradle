@@ -7,7 +7,7 @@ apply plugin: 'war'
 
 import de.undercouch.gradle.tasks.download.Download
 task download(type: Download) {
-    src 'https://github.com/Netflix/asgard/releases/download/asgard-1.5/asgard.war'
+    src 'https://github.com/Netflix/asgard/releases/download/1.5.1/asgard.war'
     onlyIfNewer true
     dest new File(buildDir, 'asgard.war')
 }
