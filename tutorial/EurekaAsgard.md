@@ -2,7 +2,7 @@
 
 If Asgard knows about Eureka it will enhance many of the pages with Eureka information. 
 The link above goes into more specific of how the integration works.
-The following steps are to enable that integregation in a way that is compatible with the rest of this tutorial.
+The following steps are to enable that integration in a way that is compatible with the rest of this tutorial.
 
 ## Build/Bake
 
