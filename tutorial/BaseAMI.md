@@ -10,7 +10,7 @@ Ideally this leaves the baking of the actual application to just the application
 It can use system packages, like RPMs or DEBs, or via a system of plugins common configuration management tools, like Chef, Puppet or Ansible, to build a machine image.
 It also supports various base environments. We'll be using Ubuntu but other RPM based OS's like CentOS are supported.
 
-    sudo pip install git+https://github.com/Netflix/aminator.git@2.1.52-dev#egg=aminator
+    sudo pip install git+https://github.com/Netflix/aminator.git#egg=aminator
     
 # Build a Debian
 
