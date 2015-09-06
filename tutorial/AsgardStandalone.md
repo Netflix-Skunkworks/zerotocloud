@@ -16,7 +16,7 @@ Also when re-using this step in the future, the URL for Asgard will be the one y
 Instead we're going to use Asgard to standup Asgard. 
 This will require us to run Asgard on the jumphost for a little while.
 
-    wget https://github.com/Netflix/asgard/releases/download/asgard-1.5/asgard-standalone.jar
+    wget https://github.com/Netflix/asgard/releases/download/1.5.1/asgard-standalone.jar
     java -DonlyRegions=us-west-2 -Xmx2048m -jar asgard-standalone.jar
 
 ## Create Application
