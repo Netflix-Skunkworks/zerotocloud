@@ -1,4 +1,4 @@
-# Step 10 - Setup Credentials
+# Step 10 - Set up Credentials
 
 We're going to use two, and potentially three, tools on the jumphost that need the user credentials created in [Step 6](CreateUser.md).
 AWS provided it as a csv file, but the tools we're using need it in different formats.
