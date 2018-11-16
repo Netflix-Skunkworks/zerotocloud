@@ -64,7 +64,7 @@ You should be viewing us-west-2, if not use the pull down at the top of page to 
 
 Technically an ASG can be heterogenous with regards to the AMI being used. 
 Meaning, that a different Launch Configuration can be used in the future, causing some instances to be created with different AMIs. 
-This is discouraged at Netflix, because it introduces an unnecessary leve of confusion when looking at an ASG. 
+This is discouraged at Netflix, because it introduces an unnecessary level of confusion when looking at an ASG. 
 The expectation is that an ASG is homogenous and if a new AMI is needed another ASG is created.
 
 ## View instance
